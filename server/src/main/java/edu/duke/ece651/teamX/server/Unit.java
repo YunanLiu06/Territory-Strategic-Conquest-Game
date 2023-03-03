@@ -1,8 +1,8 @@
 package edu.duke.ece651.teamX.server;
 
 public abstract class Unit {
-    private String name;
-    private int amount;
+    protected String name;
+    protected int amount;
     /**
      * constructor name and amount
      * @param name

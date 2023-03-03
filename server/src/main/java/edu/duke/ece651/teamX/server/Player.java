@@ -2,10 +2,10 @@ package edu.duke.ece651.teamX.server;
 
 import java.util.ArrayList;
 
-public class Player {
-    private String name;
-    private int numOfTerritory;
-    private ArrayList<Territory> myTerritories = new ArrayList<Territory> ();
+public abstract class Player {
+    protected String name;
+    protected int numOfTerritory;
+    protected ArrayList<Territory> myTerritories = new ArrayList<Territory> ();
 
     /**
      * constructor only name
