@@ -7,10 +7,20 @@ public class Territory {
     private ArrayList<Unit> unitList;
     private Player owner;
     // public ArrayList<Tuple<Player,Unit>> whoAttactsMe;
+    
+    /**
+     * constructor only name
+     * @param name
+     */
+    public Territory(String name) {
+        this.name = name;
+    }
 
-
-
-
+    /**
+     * constructor only name and player
+     * @param name
+     * @param owner
+     */
     public Territory(String name, Player owner) {
         this.name = name;
         this.owner = owner;
