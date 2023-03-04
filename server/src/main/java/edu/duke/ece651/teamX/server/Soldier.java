@@ -8,8 +8,8 @@ public class Soldier extends Unit {
      * @param name
      * @param amount
      */
-    public Soldier(String name, int amount) {
-        super(name, amount);
+    public Soldier(int amount) {
+        super("Soldier", amount);
     }
 
 

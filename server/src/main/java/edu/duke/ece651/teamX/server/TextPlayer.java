@@ -21,5 +21,10 @@ public class TextPlayer extends Player {
         super(name,myTerritories);
     }
 
+
+
+
+
+
     
 }

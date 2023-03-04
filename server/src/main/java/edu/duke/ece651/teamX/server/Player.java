@@ -22,7 +22,39 @@ public abstract class Player {
      */
     public Player(String name,ArrayList<Territory> myTerritories){
         this.name = name;
-        this.myTerritories = myTerritories;
+        for(Territory t:myTerritories){
+            t.initiateOnwer(this);
+        }
+    }
+
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void addTerritory(Territory newTerritory){
+        if(this.myTerritories.contains(newTerritory)){
+            throw new IllegalArgumentException("Territory already occupied by player");
+        }else{
+            myTerritories.add(newTerritory);
+        }
+    }
+
+    public void tryMove(Territory from, Territory to, Unit unit){
+        if(!from.getOwner().equals(to.getOwner())){
+            throw new IllegalArgumentException("two territory must be owned by the same player");
+        }
+        from.substractUnit(unit);
+        to.addUnit(unit);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o.getClass() == this.getClass()){
+            Player p = (Player) o;
+            return p.getName().equals(this.getName());
+        }
+        return false;
     }
 
 
