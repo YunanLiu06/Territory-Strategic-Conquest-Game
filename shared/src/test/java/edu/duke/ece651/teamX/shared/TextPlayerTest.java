@@ -3,7 +3,7 @@ package edu.duke.ece651.teamX.shared;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,12 @@ public class TextPlayerTest {
         ArrayList<Territory> l = new ArrayList<Territory>();
         l.add(t);
         TextPlayer c = new TextPlayer("Playerc", l);
-
+        Iterator<Territory> it = c.getTerritories();
+        Territory newt = new Territory("placeholder");
+        while(it.hasNext()){
+            newt = it.next();
+        }
+        assertSame(t,newt);
         assertThrows(IllegalArgumentException.class, () -> c.addTerritory(t));
 
         assertEquals(a,a);

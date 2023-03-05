@@ -1,6 +1,7 @@
 package edu.duke.ece651.teamX.shared;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class Player {
     protected String name;
@@ -25,6 +26,13 @@ public abstract class Player {
         for(Territory t:myTerritories){
             t.initiateOnwer(this);
         }
+    }
+
+    /*
+     * return the iterator of the territory list
+     */
+    public Iterator<Territory> getTerritories() {
+        return myTerritories.iterator();
     }
 
 
