@@ -2,7 +2,7 @@ package edu.duke.ece651.teamX.shared;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-
+import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +43,13 @@ public class TerritoryTest {
         Soldier oneSoldier = new Soldier(1);
         b.addUnit(s1);
         b.addUnit(s1);
+        Iterator<Unit> it = b.getUnits();
+        while(it.hasNext()){
+            Unit u = it.next();
+            assertEquals(Soldier.class,u.getClass());
+            assertEquals(u.getAmount(), 20);
+        }
+
         assertThrows(IllegalArgumentException.class, () -> b.substractUnit(s2));
         b.substractUnit(s1);
         b.substractUnit(s1);

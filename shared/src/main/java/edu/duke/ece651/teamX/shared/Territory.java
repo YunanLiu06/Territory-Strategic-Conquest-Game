@@ -1,6 +1,7 @@
 package edu.duke.ece651.teamX.shared;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Territory {
     private String name;
@@ -39,6 +40,13 @@ public class Territory {
      */
     public Player getOwner() {
         return owner;
+    }
+
+    /*
+     * return the iterator of the unit list
+     */
+    public Iterator<Unit> getUnits() {
+        return unitList.iterator();
     }
 
     /*
