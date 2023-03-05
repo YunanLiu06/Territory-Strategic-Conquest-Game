@@ -1,4 +1,4 @@
-package edu.duke.ece651.teamX.server;
+package edu.duke.ece651.teamX.shared;
 
 import static org.junit.jupiter.api.Assertions.*;
 
