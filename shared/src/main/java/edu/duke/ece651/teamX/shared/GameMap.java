@@ -1,14 +1,13 @@
 package edu.duke.ece651.teamX.shared;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
-import edu.duke.ece651.teamX.shared.Player;
-import edu.duke.ece651.teamX.shared.Territory;
-
-public class Map {
+public class GameMap {
 
   // undirected connected graph: {Territory: [Adjacent Territories]}
   private LinkedHashMap<Territory, LinkedList<Territory>> territories;
@@ -25,10 +24,18 @@ public class Map {
    *                       group, DEF would be another
    * @param adjacentInfo   adjacent information about the territories
    */
-  public Map(int playerNums, LinkedList<String> territoryNames, int[][] adjacentInfo) {
+  public GameMap(int playerNums, LinkedList<String> territoryNames, int[][] adjacentInfo) {
     territories = new LinkedHashMap<>();
     groups = new LinkedList<>();
     createMap(playerNums, territoryNames, adjacentInfo);
+  }
+
+  /**
+   * Get game map iterator
+   * @return game map iterator
+   */
+  public Iterator<Map.Entry<Territory, LinkedList<Territory>>> getGameMap(){
+    return territories.entrySet().iterator();
   }
 
   /**

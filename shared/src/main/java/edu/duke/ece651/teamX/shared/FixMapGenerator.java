@@ -5,10 +5,10 @@ import java.util.LinkedList;
 public class FixMapGenerator implements MapGenerator{
 
     @Override
-    public Map createMap() {
+    public GameMap createMap() {
         LinkedList<String> territoryNames = new LinkedList<>();
         territoryNames.add("Hogwarts");
-        Map gameMap = new Map(1, territoryNames, null);
+        GameMap gameMap = new GameMap(1, territoryNames, null);
         return gameMap;
     }
     

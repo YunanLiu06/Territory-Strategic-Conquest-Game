@@ -6,15 +6,11 @@ import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 
-import edu.duke.ece651.teamX.shared.Player;
-import edu.duke.ece651.teamX.shared.Territory;
-import edu.duke.ece651.teamX.shared.TextPlayer;
-
 public class FixMapGeneratorTest {
   @Test
   public void test_generae_simple_gamemap() {
     MapGenerator mapGenerator = new FixMapGenerator();
-    Map gameMap = mapGenerator.createMap();
+    GameMap gameMap = mapGenerator.createMap();
     Player playerA = new TextPlayer("P1");
     Player playerB = new TextPlayer("P2");
     gameMap.assignToPlayer(playerA);

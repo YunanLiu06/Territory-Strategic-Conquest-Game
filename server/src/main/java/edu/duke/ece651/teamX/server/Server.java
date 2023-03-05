@@ -30,7 +30,7 @@ public class Server {
       // generate Map and send to Client so they can print and exit
       LinkedList<String> territoryNames = new LinkedList<>();
       territoryNames.add("Hogwarts");
-      Map gameMap = new Map(1, territoryNames, null);
+      GameMap gameMap = new GameMap(1, territoryNames, null);
       // private: Territory territory = Map.getTerritoryByIndex(0, 1);
       Territory territory = new Territory("Hogwarts");
 
