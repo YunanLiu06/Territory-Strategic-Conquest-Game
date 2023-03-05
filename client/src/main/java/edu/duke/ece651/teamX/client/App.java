@@ -3,15 +3,31 @@
  */
 package edu.duke.ece651.teamX.client;
 
-import edu.duke.ece651.teamX.shared.MyName;
+import java.net.*;
 
+import edu.duke.ece651.teamX.shared.*;
 
 public class App {
-  public String getMessage() {
-    return "Hello from the client for "+ MyName.getName();
+  /*
+   * public String getMessage() {
+   * return "Hello from the client for "+ MyName.getName();
+   * }
+   */
+  private Client client;
+
+  public App(Client client) {
+    this.client = client;
   }
+
   public static void main(String[] args) {
-    App a = new App();
-    System.out.println(a.getMessage());
+    try {
+      InetAddress ip = InetAddress.getLocalHost();
+      Client client = new Client("localhost", 5000);
+
+      App a = new App(client);
+    } catch (UnknownHostException e) {
+      e.printStackTrace();
+    }
+    // System.out.println(a.getMessage());
   }
 }

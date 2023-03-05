@@ -3,15 +3,27 @@
  */
 package edu.duke.ece651.teamX.server;
 
-import edu.duke.ece651.teamX.shared.MyName;
-
+import java.net.*;
+import java.io.*;
+//import edu.duke.ece651.teamX.shared.MyName;
+import edu.duke.ece651.teamX.shared.*;
 
 public class App {
-  public String getMessage() {
-    return "Hello from the server for "+ MyName.getName();
+  /*
+   * public String getMessage() {
+   * return "Hello from the server for " + MyName.getName();
+   * }
+   */
+
+  private Server server;
+
+  public App(Server server) {
+    this.server = server;
   }
+
   public static void main(String[] args) {
-    App a = new App();
-    System.out.println(a.getMessage());
+    Server server = new Server(5000);
+    App a = new App(server);
+    // System.out.println(a.getMessage());
   }
 }
