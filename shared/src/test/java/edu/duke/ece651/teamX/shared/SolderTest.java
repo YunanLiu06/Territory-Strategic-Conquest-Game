@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 import org.junit.jupiter.api.Test;
+
 public class SolderTest {
     @Test
     public void test_soldier_basic() {

@@ -1,4 +1,4 @@
-package edu.duke.ece651.teamX.server;
+package edu.duke.ece651.teamX.shared;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -35,11 +35,13 @@ public class Map {
    * Assign territories in one group to player
    * @player which player to assign
    * @throws NoSuchElementException
-   * @return territories assigned to player
    */
-  public ArrayList<Territory> assignToPlayer(Player player) {
+  public void assignToPlayer(Player player) {
     if (!groups.isEmpty()) {
-      return groups.pop();
+      ArrayList<Territory> group = groups.pop();
+      for(Territory territory: group){
+        territory.initiateOnwer(player);
+      }
     } else {
       throw new NoSuchElementException("No more groups could be assigned");
     }
