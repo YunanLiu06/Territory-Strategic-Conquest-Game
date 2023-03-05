@@ -5,6 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
+import edu.duke.ece651.teamX.shared.Player;
+import edu.duke.ece651.teamX.shared.Territory;
+
 public class Map {
 
   // undirected connected graph: {Territory: [Adjacent Territories]}

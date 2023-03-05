@@ -8,6 +8,10 @@ import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 
+import edu.duke.ece651.teamX.shared.Player;
+import edu.duke.ece651.teamX.shared.Territory;
+import edu.duke.ece651.teamX.shared.TextPlayer;
+
 public class GameMapTest {
 
   @Test

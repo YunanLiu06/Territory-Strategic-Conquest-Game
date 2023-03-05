@@ -1,9 +1,9 @@
-package edu.duke.ece651.teamX.server;
+package edu.duke.ece651.teamX.shared;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+
 
 import org.junit.jupiter.api.Test;
 public class TextPlayerTest {

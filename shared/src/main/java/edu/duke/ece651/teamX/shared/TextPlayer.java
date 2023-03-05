@@ -1,4 +1,4 @@
-package edu.duke.ece651.teamX.server;
+package edu.duke.ece651.teamX.shared;
 
 import java.util.ArrayList;
 
@@ -19,12 +19,12 @@ public class TextPlayer extends Player {
      */
     public TextPlayer(String name,ArrayList<Territory> myTerritories){
         super(name,myTerritories);
-    }
-
+    }  
 
 
 
 
 
     
+
 }
