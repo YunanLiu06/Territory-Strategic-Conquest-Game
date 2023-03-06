@@ -7,6 +7,7 @@ public class Territory {
     private String name;
     private ArrayList<Unit> unitList = new ArrayList<Unit>();
     private Player owner;
+    private ArrayList<Territory> adjacentTerritoy = new ArrayList<Territory>();
     // public ArrayList<Tuple<Player,Unit>> whoAttactsMe;
     
     /**
@@ -25,6 +26,34 @@ public class Territory {
     public Territory(String name, Player owner) {
         this.name = name;
         this.owner = owner;
+    }
+
+      /**
+     * add territory to adjacent territories
+     * 
+     * NOTE: Terri t will not add this to t's adjacent territories
+     * @param t
+     */
+    public void addAdjacentTerritory(Territory t) {
+        if(!this.hasAdjacentTerritory(t)){
+            adjacentTerritoy.add(t);
+        }
+    }
+
+      /**
+     * add territory to adjacent territories
+     * @param t
+     */
+    public boolean hasAdjacentTerritory(Territory t) {
+        return adjacentTerritoy.contains(t);
+    }
+
+    /**
+     * return the iterator of adjacent territory list
+     * @return
+     */
+    public Iterator<Territory>getAdjacentTerritories() {
+        return adjacentTerritoy.iterator();
     }
 
 
