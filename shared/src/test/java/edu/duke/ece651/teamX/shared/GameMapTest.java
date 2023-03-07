@@ -84,4 +84,21 @@ public class GameMapTest {
     assertEquals(false, iter.hasNext());
   }
 
+  @Test
+  public void test_get_adjacent_territories(){
+    LinkedList<String> territoryNames = new LinkedList<>();
+    territoryNames.add("A");
+    territoryNames.add("B");
+    territoryNames.add("C");
+    territoryNames.add("D");
+    int[][] adjacentInfo = {{0,1},{2,3},{0,2},{1,2}}; //[[A,B],[C,D]]
+    GameMap gameMap = new GameMap(1, territoryNames, adjacentInfo);
+    Iterator<Map.Entry<Territory, LinkedList<Territory>>> iter = gameMap.getGameMap();
+    Map.Entry<Territory, LinkedList<Territory>>entry = iter.next();
+    assertEquals("A", entry.getKey().getName());
+    Iterator<Territory> adjIter = gameMap.getAdjacentTerritories(entry.getKey());
+    assertEquals("B", adjIter.next().getName());
+    assertEquals("C", adjIter.next().getName());
+  }
+
 }
