@@ -31,6 +31,16 @@ public class TerritoryTest {
         assertNotEquals(a, b);
         assertNotEquals(a, playerA);
 
+        a.addAdjacentTerritory(b);
+        a.addAdjacentTerritory(b);
+        int counter = 0;
+        Iterator<Territory> it = a.getAdjacentTerritories();
+        while(it.hasNext()){
+            assertSame(it.next(), b);
+            counter+=1;
+        }
+        assertEquals(1, counter);
+
     }
 
     @Test
