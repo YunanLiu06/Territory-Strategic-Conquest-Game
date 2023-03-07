@@ -1,6 +1,7 @@
 package edu.duke.ece651.teamX.shared;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -10,9 +11,12 @@ import java.util.NoSuchElementException;
 public class GameMap {
 
   // undirected connected graph: {Territory: [Adjacent Territories]}
-  private LinkedHashMap<Territory, LinkedList<Territory>> territories;
+  private LinkedHashMap<Territory, LinkedList<Territory>> territories = new LinkedHashMap<>();
 
-  private LinkedList<ArrayList<Territory>> groups;
+  // {name: territory}
+  private HashMap<String, Territory> territoryNameMap = new HashMap<>();
+
+  private LinkedList<ArrayList<Territory>> groups = new LinkedList<>();
 
   /**
    * Create territories based on the given territory names
@@ -25,8 +29,6 @@ public class GameMap {
    * @param adjacentInfo   adjacent information about the territories
    */
   public GameMap(int playerNums, LinkedList<String> territoryNames, int[][] adjacentInfo) {
-    territories = new LinkedHashMap<>();
-    groups = new LinkedList<>();
     createMap(playerNums, territoryNames, adjacentInfo);
   }
 
@@ -39,6 +41,15 @@ public class GameMap {
   }
 
   /**
+   * Get adjacent territories iterator
+   * @param territory target territory
+   * @return adjacent territories iterator
+   */
+  public Iterator<Territory> getAdjacentTerritories(Territory territory){
+    return territories.get(territory).iterator();
+  }
+
+  /**
    * Assign territories in one group to player
    * @player which player to assign
    * @throws NoSuchElementException
@@ -48,6 +59,10 @@ public class GameMap {
       ArrayList<Territory> group = groups.pop();
       for(Territory territory: group){
         territory.initiateOnwer(player);
+        // add adjacent territories
+        for(Territory adj: territories.get(territory)){
+          territory.addAdjacentTerritory(adj);
+        }
       }
     } else {
       throw new NoSuchElementException("No more groups could be assigned");
@@ -114,7 +129,9 @@ public class GameMap {
     for (int m = 0; m < playerNums; m++) {
       ArrayList<Territory> group = new ArrayList<>();
       for (int n = 0; n < groupTerrNums; n++) {
-        Territory territory = new Territory(territoryNames.pop());
+        String name = territoryNames.pop();
+        Territory territory = new Territory(name);
+        territoryNameMap.put(name, territory); //add to nameMap
         group.add(territory);
         territories.put(territory, new LinkedList<>());
       }
