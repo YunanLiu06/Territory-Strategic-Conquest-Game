@@ -28,17 +28,12 @@ public class Server {
       ObjectOutputStream oout = new ObjectOutputStream(out);
 
       // generate Map and send to Client so they can print and exit
-      LinkedList<String> territoryNames = new LinkedList<>();
-      territoryNames.add("Hogwarts");
-      GameMap gameMap = new GameMap(1, territoryNames, null);
-      // private: Territory territory = Map.getTerritoryByIndex(0, 1);
-      Territory territory = new Territory("Hogwarts");
+      MapGenerator mapGenerator = new FixMapGenerator();
+      GameMap gameMap = mapGenerator.createMap(2);
+      MapView<String> mapView = new TextMapView();
+      String view = mapView.printMap(gameMap);
 
-      String player = "\nExample Player:\n";
-      String line = "---------------------------\n";
-      String territoryName = "4 units in " + territory.getName() + "\n";
-
-      oout.writeObject(player + line + territoryName);
+      oout.writeObject(view);
       // close everything
       oout.close();
       socket.close();

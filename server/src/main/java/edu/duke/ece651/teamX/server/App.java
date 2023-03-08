@@ -9,21 +9,29 @@ import java.io.*;
 import edu.duke.ece651.teamX.shared.*;
 
 public class App {
-  /*
-   * public String getMessage() {
-   * return "Hello from the server for " + MyName.getName();
-   * }
-   */
 
-  private Server server;
+  RiscServer rs;
 
-  public App(Server server) {
-    this.server = server;
+  // string to greet the clients to the game
+  static String GREETING = "Welcome to the Game of Risc. Before we begin, we need some information to set up the game.\n\n";
+
+  // string to get the number of players
+  static String PLAYER_PROMPT = "How many players are playing? Our current system supports 2,3, and 4.\n";
+
+  public App(RiscServer rs) {
+    this.rs = rs;
   }
 
-  public static void main(String[] args) {
-    Server server = new Server(5000);
-    App a = new App(server);
-    // System.out.println(a.getMessage());
+  private Integer welcomePhase() {
+    System.out.println(GREETING + PLAYER_PROMPT);
+    String numPlayers = System.console().readLine();
+    return Integer.parseInt(numPlayers);
+  }
+
+  public static void main(String[] args) throws IOException {
+    RiscServer rs = new RiscServer(new ServerSocket(5000));
+    App a = new App(rs);
+    Integer numPlayers = a.welcomePhase();
+    rs.run();
   }
 }
