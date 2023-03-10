@@ -1,0 +1,10 @@
+
+Welcome to the Game of Risc.
+Your Player Name: BLUE
+Here is the map of the game
+
+                         Map                         
+--------------------------------------------------
+Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial, 
+Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
+
