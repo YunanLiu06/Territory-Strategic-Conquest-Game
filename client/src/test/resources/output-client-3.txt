@@ -1,0 +1,11 @@
+
+Welcome to the Game of Risc.
+Your Player Name: RED
+Here is the map of the game
+
+                         Map                         
+--------------------------------------------------
+Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial, 
+Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon, 
+Dillford, Grouchland, Jonathanland, Karatas, Loganville, Metropolis
+
