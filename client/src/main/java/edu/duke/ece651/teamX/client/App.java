@@ -3,31 +3,26 @@
  */
 package edu.duke.ece651.teamX.client;
 
+import java.io.IOException;
 import java.net.*;
 
 import edu.duke.ece651.teamX.shared.*;
 
 public class App {
-  /*
-   * public String getMessage() {
-   * return "Hello from the client for "+ MyName.getName();
-   * }
-   */
-  private Client client;
 
-  public App(Client client) {
-    this.client = client;
+  private RiscClient rc;
+
+  public App(RiscClient rc) {
+    this.rc = rc;
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     try {
-      InetAddress ip = InetAddress.getLocalHost();
-      Client client = new Client("localhost", 5000);
-
-      App a = new App(client);
+      RiscClient rc = new RiscClient(new Socket("localhost", 5000));
+      App a = new App(rc);
+      rc.run();
     } catch (UnknownHostException e) {
       e.printStackTrace();
     }
-    // System.out.println(a.getMessage());
   }
 }
