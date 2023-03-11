@@ -18,7 +18,7 @@ public class App {
 
   public static void main(String[] args) throws IOException {
     try {
-      RiscClient rc = new RiscClient(new Socket(InetAddress.getLocalHost(), 5000));
+      RiscClient rc = new RiscClient(new Socket("vcm-30720.vm.duke.edu", 5000));
       App a = new App(rc);
       rc.run();
     } catch (UnknownHostException e) {

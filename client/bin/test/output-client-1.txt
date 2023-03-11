@@ -6,8 +6,7 @@ Here is the map of the game
                          Map                         
 --------------------------------------------------
 Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial, 
-Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon, 
-Dillford, Grouchland, Jonathanland, Karatas, Loganville, Metropolis
+Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
 
 
 This is a list of your territories: 
