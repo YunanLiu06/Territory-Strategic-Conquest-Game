@@ -3,7 +3,7 @@ package edu.duke.ece651.teamX.server;
 import edu.duke.ece651.teamX.shared.*;
 import java.net.*;
 import java.io.*;
-import java.util.LinkedList;
+import java.util.*;
 
 import javax.xml.crypto.Data;
 
@@ -43,6 +43,7 @@ public class ServerIO extends Thread {
     this.name = name;
     this.gameMap = gameMap;
     player = new TextPlayer(name);
+    gameMap.assignToPlayer(player);
   }
 
   /**
@@ -67,9 +68,24 @@ public class ServerIO extends Thread {
       String view = printTextMap();
       writeObject.writeUTF(view);
 
+      // get the players territories and print them to the client
+      writeObject.writeUTF(printTerritories());
+
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
     }
+  }
+
+  private String printTerritories() {
+    String territory = "\nThis is a list of your territories: \n";
+    String toAdd = "";
+    Iterator<Territory> it = player.getTerritories();
+    while (it.hasNext()) {
+      String element = it.next().getName();
+      toAdd += " " + element + " ";
+    }
+
+    return territory + toAdd;
   }
 
   @Override

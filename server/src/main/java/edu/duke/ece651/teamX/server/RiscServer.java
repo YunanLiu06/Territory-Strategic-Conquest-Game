@@ -75,6 +75,8 @@ public class RiscServer {
         System.out.println("Server Networking Error: " + e);
       }
     }
+
+    server_socket.close();
   }
 
 }
