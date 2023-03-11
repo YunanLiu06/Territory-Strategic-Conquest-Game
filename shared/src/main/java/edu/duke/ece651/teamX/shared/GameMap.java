@@ -1,6 +1,5 @@
 package edu.duke.ece651.teamX.shared;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -73,13 +72,13 @@ public class GameMap {
 
   /**
    * Get territory by name
-   * @throws InvalidParameterException
+   * @throws IllegalArgumentException
    * @param name territory name
    * @return territory named as parameter
    */
   public Territory getTerritoryByName(String name){
     if(!territoryNameMap.containsKey(name)){
-      throw new InvalidParameterException("There is not territory named " + name);
+      throw new IllegalArgumentException("There is not territory named " + name);
     }
     return territoryNameMap.get(name);
   }

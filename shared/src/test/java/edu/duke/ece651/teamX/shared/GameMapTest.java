@@ -2,7 +2,6 @@ package edu.duke.ece651.teamX.shared;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.security.InvalidParameterException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -110,7 +109,7 @@ public class GameMapTest {
     Territory roshar = gameMap.getTerritoryByName("Roshar");
     assertEquals("Narnia", narnia.getName());
     assertEquals("Roshar", roshar.getName());
-    assertThrows(InvalidParameterException.class, ()->gameMap.getTerritoryByName("None"));
+    assertThrows(IllegalArgumentException.class, ()->gameMap.getTerritoryByName("None"));
     
   }
 
