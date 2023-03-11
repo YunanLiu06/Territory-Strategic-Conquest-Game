@@ -1,6 +1,6 @@
 
 Welcome to the Game of Risc.
-Your Player Name: BLUE
+Your Player Name: GREEN
 Here is the map of the game
 
                          Map                         
@@ -11,4 +11,7 @@ Dillford, Grouchland, Jonathanland, Karatas, Loganville, Metropolis
 
 
 This is a list of your territories: 
- Narnia  Midkemia  Oz  Gondor  Elantris  Scadrial 
+ Roshar (next to: Midkemia, Roshar, Hogwarts, Grouchland)
+ Hogwarts (next to: Gondor, Hogwarts, Atlantica, Karatas)
+ Atlantica (next to: Scadrial, Atlantica, Metropolis)
+

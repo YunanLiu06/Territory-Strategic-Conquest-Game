@@ -9,3 +9,9 @@ Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial,
 Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon, 
 Dillford, Grouchland, Jonathanland, Karatas, Loganville, Metropolis
 
+
+This is a list of your territories: 
+ Dillford (next to: Mordor, Dillford, Jonathanland)
+ Jonathanland (next to: Agrabah, Jonathanland, Loganville)
+ Loganville (next to: Brigadoon, Loganville)
+

@@ -64,10 +64,9 @@ public class ServerIO extends Thread {
     try {
       writeObject.writeUTF("\nWelcome to the Game of Risc.");
       writeObject.writeUTF("Your Player Name: " + player.getName() + "\n" + "Here is the map of the game\n");
-      // generate Map and send to Client so they can print and exit
+      // generate Map and send to Client so they can print
       String view = printTextMap();
       writeObject.writeUTF(view);
-
       // get the players territories and print them to the client
       writeObject.writeUTF(printTerritories());
 
@@ -82,7 +81,19 @@ public class ServerIO extends Thread {
     Iterator<Territory> it = player.getTerritories();
     while (it.hasNext()) {
       String element = it.next().getName();
-      toAdd += " " + element + " ";
+      // Iterator<Territory> adj = it.next().getAdjacentTerritories();
+      toAdd += " " + element + " (next to: ";
+      /*
+       * while (adj.hasNext()) {
+       * String adjTerritory = adj.next().getName();
+       * if (adj.hasNext()) {
+       * toAdd += adjTerritory + ", ";
+       * } else {
+       * toAdd += adjTerritory;
+       * }
+       * }
+       */
+      toAdd += ")\n";
     }
 
     return territory + toAdd;
