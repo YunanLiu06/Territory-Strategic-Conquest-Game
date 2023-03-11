@@ -19,10 +19,10 @@ public abstract class Unit {
     }
 
     public void substractAmount(int amount){
-        this.amount-=amount;
-        if(this.amount<0){
-            this.amount=0;
+        if(this.amount<amount){
+            throw new IllegalArgumentException("cannot substract, not enough amount");
         }
+        this.amount-=amount;
     }
 
     public int getAmount(){
