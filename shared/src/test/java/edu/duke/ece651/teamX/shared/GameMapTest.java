@@ -101,4 +101,83 @@ public class GameMapTest {
     assertEquals("C", adjIter.next().getName());
   }
 
+  @Test
+  public void test_get_territory_by_name(){
+    MapGenerator mapGenerator = new FixMapGenerator();
+    GameMap gameMap = mapGenerator.createMap(2);
+    Territory narnia = gameMap.getTerritoryByName("Narnia");
+    Territory roshar = gameMap.getTerritoryByName("Roshar");
+    assertEquals("Narnia", narnia.getName());
+    assertEquals("Roshar", roshar.getName());
+    assertThrows(IllegalArgumentException.class, ()->gameMap.getTerritoryByName("None"));
+    
+  }
+
+  private GameMap create_move_attack_map(int[][] adjacentInfo){
+    LinkedList<String> territoryNames = new LinkedList<>();
+    territoryNames.add("A");
+    territoryNames.add("B");
+    territoryNames.add("C");
+    territoryNames.add("D");
+    territoryNames.add("E");
+    territoryNames.add("F");
+    GameMap gameMap = new GameMap(2, territoryNames, adjacentInfo);
+    Player p1 = new TextPlayer("A");
+    Player p2 = new TextPlayer("B");
+    gameMap.assignToPlayer(p1);
+    gameMap.assignToPlayer(p2);
+    return gameMap;
+  }
+
+  @Test
+  public void test_can_move(){
+    int[][] adjacentInfo = {{0,1}, {0,4}, {1,3}, {1,5}, {3,2}, {4,5}, {5,2}};
+    GameMap gameMap = create_move_attack_map(adjacentInfo);
+
+    Territory a = gameMap.getTerritoryByName("A");
+    Territory b = gameMap.getTerritoryByName("B");
+    Territory c = gameMap.getTerritoryByName("C");
+    Territory d = gameMap.getTerritoryByName("D");
+    Territory e = gameMap.getTerritoryByName("E");
+    Territory f = gameMap.getTerritoryByName("F");
+
+    assertTrue(gameMap.canMove(a, b));
+    assertTrue(gameMap.canMove(b, a));
+    assertFalse(gameMap.canMove(a, c));
+    assertFalse(gameMap.canMove(b, c));
+    assertFalse(gameMap.canMove(c, a));
+    assertFalse(gameMap.canMove(c, b));
+    assertFalse(gameMap.canMove(d, e));
+    assertFalse(gameMap.canMove(b, d));
+    assertTrue(gameMap.canMove(e, f));
+    assertTrue(gameMap.canMove(f, e));
+  }
+
+  @Test
+  public void test_can_attack(){
+    int[][] adjacentInfo = {{0,1}, {0,2}, {1,3}, {1,4}, {3,5}, {2,4}, {4,5}};
+    GameMap gameMap = create_move_attack_map(adjacentInfo);
+
+    Territory a = gameMap.getTerritoryByName("A");
+    Territory b = gameMap.getTerritoryByName("B");
+    Territory c = gameMap.getTerritoryByName("C");
+    Territory d = gameMap.getTerritoryByName("D");
+    Territory e = gameMap.getTerritoryByName("E");
+    Territory f = gameMap.getTerritoryByName("F");
+
+    assertTrue(gameMap.canAttack(b, d));
+    assertTrue(gameMap.canAttack(b, e));
+    assertTrue(gameMap.canAttack(c, e));
+    assertTrue(gameMap.canAttack(d, b));
+    assertTrue(gameMap.canAttack(e, b));
+    assertTrue(gameMap.canAttack(e, c));
+
+    assertFalse(gameMap.canAttack(a, b));
+    assertFalse(gameMap.canAttack(e, f));
+    assertFalse(gameMap.canAttack(a, e));
+    assertFalse(gameMap.canAttack(a, d));
+    assertFalse(gameMap.canAttack(d, c));
+    assertFalse(gameMap.canAttack(d, a));
+    assertFalse(gameMap.canAttack(f, b));
+  }
 }
