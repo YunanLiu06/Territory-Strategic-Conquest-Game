@@ -77,22 +77,21 @@ public class ServerIO extends Thread {
 
   private String printTerritories() {
     String territory = "\nThis is a list of your territories: \n";
-    String toAdd = "";
+    String toAdd = "\n";
     Iterator<Territory> it = player.getTerritories();
     while (it.hasNext()) {
-      String element = it.next().getName();
-      // Iterator<Territory> adj = it.next().getAdjacentTerritories();
+      Territory t = it.next();
+      String element = t.getName();
+      Iterator<Territory> adj = gameMap.getAdjacentTerritories(t);
       toAdd += " " + element + " (next to: ";
-      /*
-       * while (adj.hasNext()) {
-       * String adjTerritory = adj.next().getName();
-       * if (adj.hasNext()) {
-       * toAdd += adjTerritory + ", ";
-       * } else {
-       * toAdd += adjTerritory;
-       * }
-       * }
-       */
+      while (adj.hasNext()) {
+        String adjTerritory = adj.next().getName();
+        if (adj.hasNext()) {
+          toAdd += adjTerritory + ", ";
+        } else {
+          toAdd += adjTerritory;
+        }
+      }
       toAdd += ")\n";
     }
 
