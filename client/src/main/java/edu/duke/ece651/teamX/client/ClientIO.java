@@ -41,6 +41,8 @@ public class ClientIO {
       System.out.println(readObject.readUTF());
       // print the map of the game
       System.out.println(readObject.readUTF());
+      // print the territories for each player
+      System.out.println(readObject.readUTF());
 
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
