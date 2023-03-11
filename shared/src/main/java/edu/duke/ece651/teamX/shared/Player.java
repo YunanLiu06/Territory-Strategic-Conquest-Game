@@ -45,6 +45,7 @@ public abstract class Player {
             throw new IllegalArgumentException("Territory already occupied by player");
         }else{
             myTerritories.add(newTerritory);
+            newTerritory.changeOwner(this);
         }
     }
 
