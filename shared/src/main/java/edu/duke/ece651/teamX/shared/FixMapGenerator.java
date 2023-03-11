@@ -45,7 +45,7 @@ public class FixMapGenerator implements MapGenerator {
   }
 
   /**
-   * Create two player map:
+   * Create three player map:
    * 0, 1, 2, 3, 4, 5
    * 6, 7, 8, 9, 10, 11
    * 12, 13, 14, 15, 16
@@ -68,7 +68,7 @@ public class FixMapGenerator implements MapGenerator {
   }
 
   /**
-   * Create two player map:
+   * Create four player map:
    * 0, 1, 2, 3, 4, 5
    * 6, 7, 8, 9, 10, 11
    * 12, 13, 14, 15, 16
