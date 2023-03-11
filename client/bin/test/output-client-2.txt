@@ -1,17 +1,16 @@
 
 Welcome to the Game of Risc.
-Your Player Name: RED
+Your Player Name: BLUE
 Here is the map of the game
 
                          Map                         
 --------------------------------------------------
 Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial, 
-Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon, 
-Dillford, Grouchland, Jonathanland, Karatas, Loganville, Metropolis
+Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
 
 
 This is a list of your territories: 
- Dillford (next to: Mordor, Dillford, Jonathanland)
- Jonathanland (next to: Agrabah, Jonathanland, Loganville)
- Loganville (next to: Brigadoon, Loganville)
+ Narnia (next to: Narnia, Oz, Mordor)
+ Oz (next to: Oz, Elantris, Agrabah)
+ Elantris (next to: Elantris, Brigadoon)
 
