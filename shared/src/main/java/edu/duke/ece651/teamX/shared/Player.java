@@ -7,6 +7,7 @@ public abstract class Player {
     protected String name;
     protected int numOfTerritory;
     protected ArrayList<Territory> myTerritories = new ArrayList<Territory> ();
+    public int numOfUnitAlreadyPlaced = 0;
 
     /**
      * constructor only name
@@ -40,6 +41,10 @@ public abstract class Player {
         return this.name;
     }
 
+    /**
+     * add territory to the player
+     * @param newTerritory
+     */
     public void addTerritory(Territory newTerritory){
         if(this.myTerritories.contains(newTerritory)){
             throw new IllegalArgumentException("Territory already occupied by player");
@@ -47,6 +52,31 @@ public abstract class Player {
             myTerritories.add(newTerritory);
             newTerritory.changeOwner(this);
         }
+    }
+
+    /**
+     * get how many units has placed
+     * ATTENTION: this method is only for placement check in placement stage, it should not be used any other palces.
+     * @return
+     */
+    public int getNumOfAlreadyPlaced(){
+        return numOfUnitAlreadyPlaced;
+    }
+
+    /**
+     * inital placement of units
+     * 
+     * @param t territory to place units
+     * @param u units to place
+     */
+    public void place(Territory t,Unit u){
+        if (myTerritories.contains(t)){
+            t.addUnit(u);
+            numOfUnitAlreadyPlaced+=u.getAmount();
+        }else{
+            throw new IllegalArgumentException("this Territory is not owned by this player");
+        }
+        
     }
 
     public void tryMove(Territory from, Territory to, Unit unit){
