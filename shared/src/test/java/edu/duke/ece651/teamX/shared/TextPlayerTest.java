@@ -17,6 +17,7 @@ public class TextPlayerTest {
         TextPlayer a = new TextPlayer("playerA");
         TextPlayer b = new TextPlayer("playerb");
         Territory t = new Territory("TestTerritory");
+        Territory anothert = new Territory("Another Territory");
         ArrayList<Territory> l = new ArrayList<Territory>();
         l.add(t);
         TextPlayer c = new TextPlayer("Playerc", l);
@@ -31,6 +32,19 @@ public class TextPlayerTest {
         assertEquals(a,a);
         assertNotEquals(a, b);
         assertNotEquals(a,t);
+
+        Unit u = new Soldier(10);
+        c.place(t, u);
+        Iterator<Unit> itu = t.getUnits();
+        int counter = 0;
+        while(itu.hasNext()){
+            Unit u1 = itu.next();
+            assertEquals(10, u1.getAmount());
+            counter += 1;
+        }
+        assertEquals(1,counter);
+        assertEquals(10,c.getNumOfAlreadyPlaced());
+        assertThrows(IllegalArgumentException.class, () -> c.place(anothert, u));
     }
 
 
