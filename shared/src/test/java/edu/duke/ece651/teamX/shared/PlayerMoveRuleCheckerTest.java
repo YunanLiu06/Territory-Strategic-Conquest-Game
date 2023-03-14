@@ -14,7 +14,7 @@ public class PlayerMoveRuleCheckerTest {
     t1.addUnit(s1);
     t2.addUnit(s2);
     t1.addAdjacentTerritory(t2);
-    RuleChecker playerMoveRuleChecker = new PlayerMoveRuleChecker();
+    RuleChecker playerMoveRuleChecker = new PlayerMoveRuleChecker(t1,t2,1);
     assertEquals(playerMoveRuleChecker.isValidUnitCount(t1, 5), true);
     assertEquals(playerMoveRuleChecker.isValidUnitCount(t2, 100), false);
   }
@@ -32,10 +32,12 @@ public class PlayerMoveRuleCheckerTest {
     t2.addUnit(s2);
     t3.addUnit(s3);
     t1.addAdjacentTerritory(t2);
-    RuleChecker playerMoveRuleChecker = new PlayerMoveRuleChecker();
-    assertEquals(playerMoveRuleChecker.checkRule(t1, t2, 5), true);
-    assertEquals(playerMoveRuleChecker.checkRule(t1, t2, 15), false);
-    assertEquals(playerMoveRuleChecker.checkRule(t1, t3, 5), false);
+    RuleChecker playerMoveRuleChecker = new PlayerMoveRuleChecker(t1,t2,5);
+    assertEquals(playerMoveRuleChecker.checkRule(), true);
+    playerMoveRuleChecker = new PlayerMoveRuleChecker(t1, t2, 15);
+    assertEquals(playerMoveRuleChecker.checkRule(), false);
+    playerMoveRuleChecker = new PlayerMoveRuleChecker(t1, t3, 5);
+    assertEquals(playerMoveRuleChecker.checkRule(), false);
     Territory t4 = new Territory("TestTerritory4", p1);
     Soldier s4 = new Soldier( 10);
     t4.addUnit(s4);
@@ -48,7 +50,8 @@ public class PlayerMoveRuleCheckerTest {
     t2.addAdjacentTerritory(t4);
     t1.addAdjacentTerritory(t5);
     t5.addAdjacentTerritory(t6);
-    assertEquals(playerMoveRuleChecker.checkRule(t1, t6, 5), true);
+    playerMoveRuleChecker = new PlayerMoveRuleChecker(t1, t6, 5);
+    assertEquals(playerMoveRuleChecker.checkRule(), true);
     t4 = new Territory("TestTerritory4", p1);
     t4.addUnit(s4);
     t5 = new Territory("TestTerritory5", p1);
@@ -58,7 +61,8 @@ public class PlayerMoveRuleCheckerTest {
     t2.addAdjacentTerritory(t4);
     t1.addAdjacentTerritory(t5);
     t5.addAdjacentTerritory(t6);
-    assertEquals(playerMoveRuleChecker.checkRule(t1, t6, 5), false);
+    playerMoveRuleChecker = new PlayerMoveRuleChecker(t1, t6, 5);
+    assertEquals(playerMoveRuleChecker.checkRule(), false);
     Player p2 = new TextPlayer("p2");
     Territory t7 = new Territory("TestTerritory1", p2);
     Territory t8 = new Territory("TestTerritory2");
@@ -68,7 +72,8 @@ public class PlayerMoveRuleCheckerTest {
     t9.addUnit(s3);
     t7.addAdjacentTerritory(t8);
     t8.addAdjacentTerritory(t9);
-    assertEquals(playerMoveRuleChecker.checkRule(t7, t9, 1), false);
+    playerMoveRuleChecker = new PlayerMoveRuleChecker(t7, t9, 1);
+    assertEquals(playerMoveRuleChecker.checkRule(), false);
   }
 
 }
