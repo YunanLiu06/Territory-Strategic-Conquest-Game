@@ -12,14 +12,16 @@ public class PlayerMoveRuleChecker extends RuleChecker {
     }
 
     public boolean pathCheck(Territory startTerritory, Territory destTerritory) {
-        if (startTerritory.equals(destTerritory)) {
+        if (startTerritory.equals(destTerritory) && startTerritory.getOwner() == destTerritory.getOwner()) {
             return true;
         } else {
             Iterator<Territory> itr = startTerritory.getAdjacentTerritories();
             while (itr.hasNext()) {
                 Territory next = itr.next();
-                if (pathCheck(next, destTerritory)) {
-                    return true;
+                if (next.getOwner() == startTerritory.getOwner()) {
+                    if (pathCheck(next, destTerritory)) {
+                        return true;
+                    }
                 }
             }
         }
