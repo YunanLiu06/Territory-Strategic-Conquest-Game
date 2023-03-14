@@ -17,6 +17,7 @@ public class RiscClient {
       ClientIO clientIO = new ClientIO(client_socket.getInputStream(), client_socket.getOutputStream());
 
       clientIO.initalizationPhase();
+      clientIO.placementPhase();
       client_socket.close();
     } catch (IOException e) {
       System.out.println("RUN Error: " + e + "\n");

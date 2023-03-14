@@ -75,8 +75,12 @@ public class RiscServer {
         System.out.println("Server Networking Error: " + e);
       }
     }
-
-    server_socket.close();
   }
 
+  //remaining things: synchronize the threads (a while loop checking each thread (is it in await state))
+  //if all threads in await state, they finish the last placement phase
+  //need to call signal all to tell of the threads to change their await state
+  //check if the game has a winner or loser, this while loop
+  //call this synchronize threads after the while loop, keep synchronizing threads 
+  
 }

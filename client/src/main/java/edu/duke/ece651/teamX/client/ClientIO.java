@@ -2,6 +2,7 @@ package edu.duke.ece651.teamX.client;
 
 import java.io.*;
 import java.net.*;
+import java.util.*;
 import edu.duke.ece651.teamX.shared.*;
 
 /**
@@ -44,6 +45,27 @@ public class ClientIO {
       // print the territories for each player
       System.out.println(readObject.readUTF());
 
+    } catch (IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
+    }
+  }
+
+  public void placementPhase() {
+    try {
+      Scanner scan = new Scanner(System.in);
+      // print the message for the placement phase
+      System.out.println(readObject.readUTF());
+      // placement phase
+      for (int i = 0; i < 6; i++) {
+        System.out.println(readObject.readUTF());
+        writeObject.writeUTF(scan.nextLine());
+      }
+      scan.close();
+      System.out.println(readObject.readUTF());
+      // print out the placement summary
+      for (int i = 0; i < 6; i++) {
+        System.out.println(readObject.readUTF());
+      }
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
     }
