@@ -31,5 +31,6 @@ public abstract class RuleChecker {
      * @param moveUnitsCount amount of units user want to move
      * @return true if meets all rule, false if not
      */
-    public abstract boolean checkRule(Territory startTerritory, Territory destTerritory, int moveUnitsCount);
+//    public abstract boolean checkRule(Territory startTerritory, Territory destTerritory, int moveUnitsCount);
+    public abstract boolean checkRule();
 }

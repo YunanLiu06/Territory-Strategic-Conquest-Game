@@ -3,8 +3,12 @@ package edu.duke.ece651.teamX.shared;
 import java.util.Iterator;
 
 public class PlayerMoveRuleChecker extends RuleChecker {
+
+    private Territory startTerritory;
+    private Territory destTerritory;
+    private int moveUnitsCount;
     @Override
-    public boolean checkRule(Territory startTerritory, Territory destTerritory, int moveUnitsCount) {
+    public boolean checkRule() {
         if (isValidUnitCount(startTerritory, moveUnitsCount)) {
             return pathCheck(startTerritory, destTerritory);
         }
@@ -12,19 +16,25 @@ public class PlayerMoveRuleChecker extends RuleChecker {
     }
 
     public boolean pathCheck(Territory startTerritory, Territory destTerritory) {
-        if (startTerritory.equals(destTerritory)) {
+        if (startTerritory.equals(destTerritory) && startTerritory.getOwner() == destTerritory.getOwner()) {
             return true;
         } else {
             Iterator<Territory> itr = startTerritory.getAdjacentTerritories();
             while (itr.hasNext()) {
                 Territory next = itr.next();
-                if (pathCheck(next, destTerritory)) {
-                    return true;
+                if (next.getOwner() == startTerritory.getOwner()) {
+                    if (pathCheck(next, destTerritory)) {
+                        return true;
+                    }
                 }
             }
         }
         return false;
     }
 
-    public PlayerMoveRuleChecker() { }
+    public PlayerMoveRuleChecker(Territory startTerritory, Territory destTerritory, int moveUnitsCount) {
+        this.startTerritory = startTerritory;
+        this.destTerritory = destTerritory;
+        this.moveUnitsCount = moveUnitsCount;
+    }
 }
