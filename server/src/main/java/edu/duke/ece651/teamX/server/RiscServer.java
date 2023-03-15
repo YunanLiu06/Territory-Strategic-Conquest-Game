@@ -3,8 +3,11 @@ package edu.duke.ece651.teamX.server;
 import edu.duke.ece651.teamX.shared.*;
 import java.net.*;
 import java.io.*;
+import java.lang.Thread.State;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.locks.*;
+import static java.lang.Thread.sleep;
 
 /**
  * This class is the RiscServer. This class represents the server for the
@@ -23,6 +26,8 @@ public class RiscServer {
   MapGenerator mapGenerator = new FixMapGenerator();
   GameMap gameMap;
   ArrayList<String> playerNames = new ArrayList<String>();
+  Lock lock;
+  Condition isReady;
 
   /**
    * This constructs a RiscServer with the specified ServerSocket.
@@ -39,6 +44,8 @@ public class RiscServer {
     playerNames.add("GREEN");
     playerNames.add("RED");
     playerNames.add("BLACK");
+    this.lock = new ReentrantLock();
+    this.isReady = lock.newCondition();
   }
 
   /**
@@ -66,7 +73,7 @@ public class RiscServer {
         String name = playerNames.get(num - 1);
         // create an instance of ServerIO, which handles the IO for the server
         ServerIO serverIO = new ServerIO(client_socket, client_socket.getInputStream(),
-            client_socket.getOutputStream(), name, gameMap);
+            client_socket.getOutputStream(), name, gameMap, lock, isReady);
         threads.add(serverIO);
         // start the thread
         serverIO.start();
@@ -75,12 +82,39 @@ public class RiscServer {
         System.out.println("Server Networking Error: " + e);
       }
     }
+    try {
+      synchThreads();
+    } catch (InterruptedException e) {
+      System.out.println("Interrupted Exception: " + e);
+    }
   }
 
-  //remaining things: synchronize the threads (a while loop checking each thread (is it in await state))
-  //if all threads in await state, they finish the last placement phase
-  //need to call signal all to tell of the threads to change their await state
-  //check if the game has a winner or loser, this while loop
-  //call this synchronize threads after the while loop, keep synchronizing threads 
-  
+  // remaining things: synchronize the threads (a while loop checking each thread
+  // (is it in await state))
+  // if all threads in await state, they finish the last placement phase
+  // need to call signal all to tell of the threads to change their await state
+  // check if the game has a winner or loser, this while loop
+  // call this synchronize threads after the while loop, keep synchronizing
+  // threads
+
+  public void synchThreads() throws InterruptedException {
+    while (true) {
+      while (!isWaiting()) {
+      }
+      sleep(100);
+      lock.lock();
+      isReady.signalAll();
+      lock.unlock();
+    }
+  }
+
+  public Boolean isWaiting() {
+    for (ServerIO s : threads) {
+      if (s.getState() != State.WAITING && s.getIsConnected() == true) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 }

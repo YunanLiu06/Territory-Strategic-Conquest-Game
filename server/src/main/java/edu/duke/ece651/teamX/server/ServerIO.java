@@ -4,7 +4,7 @@ import edu.duke.ece651.teamX.shared.*;
 import java.net.*;
 import java.io.*;
 import java.util.*;
-
+import java.util.concurrent.locks.*;
 import javax.xml.crypto.Data;
 
 import com.google.common.collect.Iterators;
@@ -27,6 +27,9 @@ public class ServerIO extends Thread {
   private String name;
   private GameMap gameMap;
   private Player player;
+  private Lock lock;
+  private Condition isReady;
+  private Boolean isConnected;
 
   // string to state that there was an IOException in ther server
   static String CONSTRUCTOR_ERROR = "Constructor Error: ";
@@ -34,7 +37,11 @@ public class ServerIO extends Thread {
   // strign to state that there was an IOError
   static String IO_ERROR = "IO Error: ";
 
-  public ServerIO(Socket socket, InputStream in, OutputStream out, String name, GameMap gameMap) {
+  // string to state there was an Interrupted Exception Error
+  static String IE_ERROR = "Interrupted Exception Error: ";
+
+  public ServerIO(Socket socket, InputStream in, OutputStream out, String name, GameMap gameMap, Lock lock,
+      Condition isReady) {
     // initialize IO
     this.socket = socket;
     this.in = in;
@@ -46,6 +53,13 @@ public class ServerIO extends Thread {
     this.gameMap = gameMap;
     player = new TextPlayer(name);
     gameMap.assignToPlayer(player);
+    this.lock = lock;
+    this.isReady = isReady;
+    this.isConnected = true;
+  }
+
+  public Boolean getIsConnected() {
+    return isConnected;
   }
 
   /**
@@ -97,8 +111,17 @@ public class ServerIO extends Thread {
         String unitString = " " + t.getName() + ": " + size + " units";
         writeObject.writeUTF(unitString);
       }
+
+      // tell the players that they are waiting on other players
+      writeObject.writeUTF("\nOther players are still placing their units. Please wait...");
+      lock.lock();
+      isReady.await();
+      lock.unlock();
+      writeObject.writeUTF("\nDone with placement phase. The game will now begin!");
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
+    } catch (InterruptedException e) {
+      System.out.println(IE_ERROR + e + "\n");
     }
   }
 

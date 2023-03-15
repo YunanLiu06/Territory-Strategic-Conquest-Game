@@ -35,9 +35,10 @@ How many units do you want to place in territory Elantris?
 
 How many units do you want to place in territory Scadrial?
 
-Narnia:  1 units
-Midkemia:  2 units
-Oz:  3 units
-Gondor:  4 units
-Elantris:  5 units
-Scadrial:  6 units
+Your placements are as follows: 
+ Narnia: 1 units
+ Midkemia: 2 units
+ Oz: 3 units
+ Gondor: 4 units
+ Elantris: 5 units
+ Scadrial: 6 units

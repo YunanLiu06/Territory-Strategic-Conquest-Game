@@ -66,6 +66,9 @@ public class ClientIO {
       for (int i = 0; i < 6; i++) {
         System.out.println(readObject.readUTF());
       }
+      // print out wait and game being statements
+      System.out.println(readObject.readUTF());
+      System.out.println(readObject.readUTF());
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
     }
