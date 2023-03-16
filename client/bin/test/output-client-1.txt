@@ -1,6 +1,6 @@
 
 Welcome to the Game of Risc.
-Your Player Name: BLUE
+Your Player Name: GREEN
 Here is the map of the game
 
                          Map                         
@@ -11,34 +11,38 @@ Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
 
 This is a list of your territories: 
 
- Narnia (next to: Midkemia, Roshar)
- Midkemia (next to: Narnia, Oz, Mordor)
- Oz (next to: Midkemia, Gondor, Hogwarts)
- Gondor (next to: Oz, Elantris, Agrabah)
- Elantris (next to: Gondor, Scadrial, Atlantica)
- Scadrial (next to: Elantris, Brigadoon)
+ Roshar (next to: Narnia, Mordor)
+ Mordor (next to: Midkemia, Roshar, Hogwarts)
+ Hogwarts (next to: Oz, Mordor, Agrabah)
+ Agrabah (next to: Gondor, Hogwarts, Atlantica)
+ Atlantica (next to: Elantris, Agrabah, Brigadoon)
+ Brigadoon (next to: Scadrial, Atlantica)
 
 
 
 You are now in the placement phase of the game. This means you will be given 30 units and you will place
 them amongst your territories. Each territory must have units (you can't place 0).
 
-How many units do you want to place in territory Narnia?
+How many units do you want to place in terr
+How many unit
+How many units do you want to place in territory Mordor?
 
-How many units do you want to place in territory Midkemia?
+How many units do you want to place in territory Hogwarts?
 
-How many units do you want to place in territory Oz?
+How many units do you want to place in territory Agrabah?
 
-How many units do you want to place in territory Gondor?
+How many units do you want to place in territory Atlantica?
 
-How many units do you want to place in territory Elantris?
-
-How many units do you want to place in territory Scadrial?
+How many units do you want to place in territory Brigadoon?
 
 Your placements are as follows: 
- Narnia: 1 units
- Midkemia: 2 units
- Oz: 3 units
- Gondor: 4 units
- Elantris: 5 units
- Scadrial: 6 units
+ Roshar: 2 units
+ Mordor: 3 units
+ Hogwarts: 4 units
+ Agrabah: 5 units
+ Atlantica: 6 units
+ Brigadoon: 7 units
+
+Other players are still placing 
+Done with placement phase. 
+Done with placement phase. The game will now begin!
