@@ -212,4 +212,13 @@ public class GameMap {
       groups.add(group);
     }
   }
+
+  /**
+   * Handle all fires
+   */
+  public void handleAllFires(){
+    for(Territory territory: territories.keySet()){
+      territory.handleFire();
+    }
+  }
 }
