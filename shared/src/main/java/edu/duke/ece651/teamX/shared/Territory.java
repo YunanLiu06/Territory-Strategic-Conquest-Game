@@ -14,6 +14,7 @@ public class Territory {
     private ArrayList<Territory> adjacentTerritoy = new ArrayList<Territory>();
     public ArrayList<Player> whoAttactsMe = new ArrayList<Player>();
     public ArrayList<ArrayList<Unit>> whatAttactsMe = new ArrayList<ArrayList<Unit>>();
+    public Determinant determinant = new DiceGame();
 
     
     /**
@@ -160,7 +161,12 @@ public class Territory {
     }
 
     private int determineWhoWin(Unit a, Unit b){
-        return 1;
+        boolean res = determinant.determine(a, b);
+        if (res){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
 
