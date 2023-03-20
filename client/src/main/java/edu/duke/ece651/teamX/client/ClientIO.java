@@ -17,6 +17,7 @@ public class ClientIO {
   private OutputStream out;
   private DataOutputStream writeObject;
   private DataInputStream readObject;
+  private Scanner scan;
 
   static String CONSTRUCTOR_ERROR = "Constructor Error: ";
 
@@ -27,6 +28,7 @@ public class ClientIO {
     this.out = out;
     writeObject = new DataOutputStream(out);
     readObject = new DataInputStream(in);
+    scan = new Scanner(System.in);
   }
 
   /**
@@ -52,7 +54,6 @@ public class ClientIO {
 
   public void placementPhase() {
     try {
-      Scanner scan = new Scanner(System.in);
       // print the message for the placement phase
       System.out.println(readObject.readUTF());
       // placement phase
@@ -60,7 +61,6 @@ public class ClientIO {
         System.out.println(readObject.readUTF());
         writeObject.writeUTF(scan.nextLine());
       }
-      scan.close();
       System.out.println(readObject.readUTF());
       // print out the placement summary
       for (int i = 0; i < 6; i++) {
@@ -76,8 +76,6 @@ public class ClientIO {
 
   public void turnPhase() {
     try {
-      Scanner scan = new Scanner(System.in);
-
       // print the game map
       System.out.println(readObject.readUTF());
 
@@ -91,7 +89,9 @@ public class ClientIO {
 
       // if move
       System.out.println(readObject.readUTF());
-      writeObject.writeUTF(scan.nextLine());
+      String moveOrder = scan.nextLine();
+      writeObject.writeUTF(moveOrder);
+      System.out.println(readObject.readUTF());
 
       scan.close();
     } catch (IOException e) {

@@ -114,7 +114,7 @@ public class ServerIO extends Thread {
         // need to error check
         String temp = readObject.readUTF();
         int units = Integer.parseInt(temp);
-        Unit unit = new Soldier(units);
+        Soldier unit = new Soldier(units);
         t.addUnit(unit);
       }
       // print out the unit information to the client
@@ -220,6 +220,7 @@ public class ServerIO extends Thread {
     while (it.hasNext()) {
       Territory t = it.next();
       if (t.getName().equals(name)) {
+        //       System.out.println(t.getName() + "\n");
         return t;
       }
     }
@@ -240,7 +241,8 @@ public class ServerIO extends Thread {
       // split the move order and pass into tryMove
       String[] split = moveOrder.split(" ");
       int amount = Integer.parseInt(split[2]);
-      player.tryMove(getTerritory(split[0]), getTerritory(split[1]), new Soldier(amount));
+      //System.out.println("Split[0]: " + gameMap.getTerritoryByName(split[0]).getName() + "Split[1]: " + gameMap.getTerritoryByName(split[1]).getName());
+      player.tryMove(gameMap.getTerritoryByName(split[0]), gameMap.getTerritoryByName(split[1]), new Soldier(amount));
 
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
@@ -273,11 +275,12 @@ public class ServerIO extends Thread {
       writeObject.writeUTF(printTerritoriesAndUnits() + "\n");
       writeObject.writeUTF("\nWhat order would you like to do? Enter m for move, a for attack, and c for commit");
       String choice = readObject.readUTF();
-      if (choice == "m") {
+      if (choice.equals("m")) {
         move();
-      } else if (choice == "a") {
+        writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
+      } else if (choice.equals("a")) {
         attack();
-      } else if (choice == "c") {
+      } else if (choice.equals("c")) {
         commit();
       } else {
         System.out.println("Not valid choice.");
