@@ -30,6 +30,7 @@ public class ServerIO extends Thread {
   private Lock lock;
   private Condition isReady;
   private Boolean isConnected;
+  private ArrayList<String> playerMoves;
 
   // string to state that there was an IOException in ther server
   static String CONSTRUCTOR_ERROR = "Constructor Error: ";
@@ -66,6 +67,7 @@ public class ServerIO extends Thread {
     this.lock = lock;
     this.isReady = isReady;
     this.isConnected = true;
+    playerMoves = new ArrayList<String>();
   }
 
   /**
@@ -220,7 +222,6 @@ public class ServerIO extends Thread {
     while (it.hasNext()) {
       Territory t = it.next();
       if (t.getName().equals(name)) {
-        //       System.out.println(t.getName() + "\n");
         return t;
       }
     }
@@ -231,36 +232,23 @@ public class ServerIO extends Thread {
   /**
    * function to move units for the client
    */
-  public void move() {
-    try {
-
-      // prompt the user
-      writeObject.writeUTF("Enter the move: <territory from> <territory to> <unit amount>");
-      String moveOrder = readObject.readUTF();
-
-      // split the move order and pass into tryMove
-      String[] split = moveOrder.split(" ");
-      int amount = Integer.parseInt(split[2]);
-      //System.out.println("Split[0]: " + gameMap.getTerritoryByName(split[0]).getName() + "Split[1]: " + gameMap.getTerritoryByName(split[1]).getName());
-      player.tryMove(gameMap.getTerritoryByName(split[0]), gameMap.getTerritoryByName(split[1]), new Soldier(amount));
-
-    } catch (IOException e) {
-      System.out.println(IO_ERROR + e + "\n");
-    }
+  private void move(ArrayList<String> playerMoves) {
+      for(int i = 0; i < playerMoves.size(); i++) {
+        // split the move order and pass into tryMove
+        String moveOrder = playerMoves.get(i);
+        String[] split = moveOrder.split(" ");
+        int amount = Integer.parseInt(split[2]);
+        Territory from = gameMap.getTerritoryByName(split[0]);
+        Territory to = gameMap.getTerritoryByName(split[1]);
+        player.tryMove(from, to, new Soldier(amount));
+      }
   }
 
   /**
    * function to attack for the client
    */
   public void attack() {
-
-  }
-
-  /**
-   * function to commit the moves
-   */
-  public void commit() {
-
+    
   }
 
   /**
@@ -273,17 +261,35 @@ public class ServerIO extends Thread {
     try {
       writeObject.writeUTF("\nGame Map: \n" + printTextMap() + "\n");
       writeObject.writeUTF(printTerritoriesAndUnits() + "\n");
-      writeObject.writeUTF("\nWhat order would you like to do? Enter m for move, a for attack, and c for commit");
-      String choice = readObject.readUTF();
-      if (choice.equals("m")) {
-        move();
-        writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
-      } else if (choice.equals("a")) {
-        attack();
-      } else if (choice.equals("c")) {
-        commit();
-      } else {
-        System.out.println("Not valid choice.");
+
+      //may want to clear the array list
+
+      while(true) {
+        //prompt the user for what action they want to commit 
+        writeObject.writeUTF("\nWhat order would you like to do? Enter m for move, a for attack, and c for commit");
+        String choice = readObject.readUTF();
+
+        if (choice.equals("m")) {
+            // prompt the user
+          writeObject.writeUTF("Enter the move: <territory from> <territory to> <unit amount>");
+          String moveOrder = readObject.readUTF();          
+          playerMoves.add(moveOrder);
+          //writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");          
+        } else if (choice.equals("a")) {
+          attack();
+        } else if (choice.equals("c")) {
+          /*writeObject.writeUTF("Waiting for other players to commit their moves...");
+          lock.lock();
+          isReady.await();
+          lock.unlock()*/
+          if(!playerMoves.isEmpty()) {
+            move(playerMoves);
+          }
+          writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
+          break;
+        } else {
+          System.out.println("Not valid choice.");
+        }
       }
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");

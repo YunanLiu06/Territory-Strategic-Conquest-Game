@@ -82,17 +82,23 @@ public class ClientIO {
       // print the territories with the units to the client
       System.out.println(readObject.readUTF());
 
-      // print the prompt and take in the user's move
-      System.out.println(readObject.readUTF());
-      String move = scan.nextLine();
-      writeObject.writeUTF(move);
-
-      // if move
-      System.out.println(readObject.readUTF());
-      String moveOrder = scan.nextLine();
-      writeObject.writeUTF(moveOrder);
-      System.out.println(readObject.readUTF());
-
+      while(true) {
+        // print the prompt and take in the user's move
+        System.out.println(readObject.readUTF());
+        String option = scan.nextLine();
+        writeObject.writeUTF(option);
+        if(option.equals("m")) {
+          // if move
+          System.out.println(readObject.readUTF());
+          String moveOrder = scan.nextLine();
+          writeObject.writeUTF(moveOrder);
+        }
+        //if option is to commit
+        if(option.equals("c")) {
+          System.out.println(readObject.readUTF());
+          break;
+        }
+      }
       scan.close();
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
