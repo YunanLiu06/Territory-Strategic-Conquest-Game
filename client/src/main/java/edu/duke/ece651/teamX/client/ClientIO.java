@@ -99,6 +99,7 @@ public class ClientIO {
           break;
         }
       }
+      System.out.println(readObject.readUTF());
       scan.close();
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");

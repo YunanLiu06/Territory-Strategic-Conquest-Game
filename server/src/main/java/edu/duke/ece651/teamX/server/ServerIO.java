@@ -31,6 +31,7 @@ public class ServerIO extends Thread {
   private Condition isReady;
   private Boolean isConnected;
   private ArrayList<String> playerMoves;
+  private ArrayList<String> attackMoves;
 
   // string to state that there was an IOException in ther server
   static String CONSTRUCTOR_ERROR = "Constructor Error: ";
@@ -234,13 +235,19 @@ public class ServerIO extends Thread {
    */
   private void move(ArrayList<String> playerMoves) {
       for(int i = 0; i < playerMoves.size(); i++) {
+        RuleChecker playerMoveRuleChecker;
         // split the move order and pass into tryMove
         String moveOrder = playerMoves.get(i);
         String[] split = moveOrder.split(" ");
         int amount = Integer.parseInt(split[2]);
         Territory from = gameMap.getTerritoryByName(split[0]);
         Territory to = gameMap.getTerritoryByName(split[1]);
-        player.tryMove(from, to, new Soldier(amount));
+        playerMoveRuleChecker = new PlayerMoveRuleChecker(from,to,amount);
+        if(playerMoveRuleChecker.checkRule() == true) {
+          player.tryMove(from, to, new Soldier(amount));
+         } else {
+           System.out.println("wrong move");
+          }
       }
   }
 
@@ -278,10 +285,10 @@ public class ServerIO extends Thread {
         } else if (choice.equals("a")) {
           attack();
         } else if (choice.equals("c")) {
-          /*writeObject.writeUTF("Waiting for other players to commit their moves...");
+          writeObject.writeUTF("Waiting for other players to commit their moves...");
           lock.lock();
           isReady.await();
-          lock.unlock()*/
+          lock.unlock();
           if(!playerMoves.isEmpty()) {
             move(playerMoves);
           }
@@ -293,6 +300,8 @@ public class ServerIO extends Thread {
       }
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
+    } catch (InterruptedException e) {
+      System.out.println(IE_ERROR + e + "\n");
     }
   }
 
