@@ -54,6 +54,19 @@ public abstract class Player {
         }
     }
 
+
+    /**
+     * lose territory to the player
+     * @param newTerritory
+     */
+    public void loseTerritory(Territory newTerritory){
+        if(!this.myTerritories.contains(newTerritory)){
+            throw new IllegalArgumentException("Territory is not occupied by this player");
+        }else{
+            myTerritories.remove(newTerritory);
+        }
+    }
+
     /**
      * get how many units has placed
      * ATTENTION: this method is only for placement check in placement stage, it should not be used any other palces.
@@ -79,12 +92,25 @@ public abstract class Player {
         
     }
 
+    /**
+     * try to move unit form one place to another
+     * @param from
+     * @param to
+     * @param unit
+     */
     public void tryMove(Territory from, Territory to, Unit unit){
         if(!from.getOwner().equals(to.getOwner())){
             throw new IllegalArgumentException("two territory must be owned by the same player");
         }
         from.substractUnit(unit);
         to.addUnit(unit);
+    }
+    /**
+     * determine if the plaer  loses
+     * @return
+     */
+    public boolean isLose(){
+        return myTerritories.isEmpty();
     }
 
     @Override
