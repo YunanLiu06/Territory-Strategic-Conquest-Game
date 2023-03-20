@@ -161,7 +161,7 @@ public class Territory {
     }
 
     private int determineWhoWin(Unit a, Unit b){
-        boolean res = determinant.determine(a, b);
+        boolean res = determinant.determine(a, b, 20, 20);
         if (res){
             return 1;
         }else{
