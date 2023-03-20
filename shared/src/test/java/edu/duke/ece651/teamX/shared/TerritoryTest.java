@@ -78,6 +78,7 @@ public class TerritoryTest {
         TextPlayer playB = new TextPlayer("PlayerB");
         TextPlayer playC = new TextPlayer("PlayerC");
         Territory a = new Territory("TerritoryA",playA);
+        playA.addTerritory(a);
         Soldier s1 = new Soldier( 10);
         Soldier s2 = new Soldier( 10);
         Soldier s3 = new Soldier( 10);
@@ -106,6 +107,7 @@ public class TerritoryTest {
         TextPlayer playB = new TextPlayer("PlayerB");
         TextPlayer playC = new TextPlayer("PlayerC");
         Territory a = new Territory("TerritoryA",playA);
+        playA.addTerritory(a);
         Soldier s2 = new Soldier( 10);
         Soldier s3 = new Soldier( 10);
 

@@ -28,6 +28,9 @@ public class TextPlayerTest {
         }
         assertSame(t,newt);
         assertThrows(IllegalArgumentException.class, () -> c.addTerritory(t));
+        c.loseTerritory(t);
+        assertThrows(IllegalArgumentException.class, () -> c.loseTerritory(t));
+        c.addTerritory(t);
 
         assertEquals(a,a);
         assertNotEquals(a, b);

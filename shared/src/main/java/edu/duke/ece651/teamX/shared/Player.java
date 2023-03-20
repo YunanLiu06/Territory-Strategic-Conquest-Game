@@ -54,6 +54,19 @@ public abstract class Player {
         }
     }
 
+
+    /**
+     * lose territory to the player
+     * @param newTerritory
+     */
+    public void loseTerritory(Territory newTerritory){
+        if(!this.myTerritories.contains(newTerritory)){
+            throw new IllegalArgumentException("Territory is not occupied by this player");
+        }else{
+            myTerritories.remove(newTerritory);
+        }
+    }
+
     /**
      * get how many units has placed
      * ATTENTION: this method is only for placement check in placement stage, it should not be used any other palces.

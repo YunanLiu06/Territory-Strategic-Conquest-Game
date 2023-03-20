@@ -220,7 +220,7 @@ public class Territory {
                 i=0;
             }
         }
-
+        this.owner.loseTerritory(this);
         this.owner = whoAttactsMe.get(0);
 
         whoAttactsMe.clear();
