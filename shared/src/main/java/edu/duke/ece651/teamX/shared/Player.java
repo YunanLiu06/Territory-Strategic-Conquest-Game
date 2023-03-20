@@ -92,6 +92,12 @@ public abstract class Player {
         
     }
 
+    /**
+     * try to move unit form one place to another
+     * @param from
+     * @param to
+     * @param unit
+     */
     public void tryMove(Territory from, Territory to, Unit unit){
         if(!from.getOwner().equals(to.getOwner())){
             throw new IllegalArgumentException("two territory must be owned by the same player");
@@ -99,7 +105,10 @@ public abstract class Player {
         from.substractUnit(unit);
         to.addUnit(unit);
     }
-
+    /**
+     * determine if the plaer  loses
+     * @return
+     */
     public boolean isLose(){
         return myTerritories.isEmpty();
     }
