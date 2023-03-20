@@ -2,6 +2,7 @@ package edu.duke.ece651.teamX.shared;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -179,5 +180,48 @@ public class GameMapTest {
     assertFalse(gameMap.canAttack(d, c));
     assertFalse(gameMap.canAttack(d, a));
     assertFalse(gameMap.canAttack(f, b));
+  }
+
+  @Test
+  public void test_handle_all_fires(){
+    LinkedList<String> territoryNames = new LinkedList<>();
+    territoryNames.add("A");
+    territoryNames.add("B");
+    territoryNames.add("C");
+    territoryNames.add("D");
+    territoryNames.add("E");
+    territoryNames.add("F");
+    int[][] adjacentInfo = {{0,1}, {0,2}, {1,3}, {1,4}, {3,5}, {2,4}, {4,5}};
+    GameMap gameMap = new GameMap(2, territoryNames, adjacentInfo);
+    Player p1 = new TextPlayer("A");
+    Player p2 = new TextPlayer("B");
+    gameMap.assignToPlayer(p1);
+    gameMap.assignToPlayer(p2);
+
+    Territory a = gameMap.getTerritoryByName("A");
+    Territory b = gameMap.getTerritoryByName("B");
+    Territory c = gameMap.getTerritoryByName("C");
+    Territory d = gameMap.getTerritoryByName("D");
+    Territory e = gameMap.getTerritoryByName("E");
+    Territory f = gameMap.getTerritoryByName("F");
+    
+    Soldier s1 = new Soldier( 10);
+    Soldier s2 = new Soldier( 10);
+    Soldier s3 = new Soldier( 10);
+    Soldier s4 = new Soldier( 10);
+    Soldier s5 = new Soldier( 10);
+    Soldier s6 = new Soldier( 10);
+
+    a.addUnit(s1);
+    b.addUnit(s2);
+    c.addUnit(s3);
+    d.addUnit(s4);
+    e.addUnit(s5);
+    f.addUnit(s6);
+   
+    ArrayList<Unit> units = new ArrayList<Unit>();
+    units.add(s2);
+    a.addFireSource(p2, units);
+    gameMap.handleAllFires();
   }
 }
