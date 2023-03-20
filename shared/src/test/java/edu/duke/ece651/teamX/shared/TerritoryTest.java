@@ -83,7 +83,7 @@ public class TerritoryTest {
         Soldier s2 = new Soldier( 10);
         Soldier s3 = new Soldier( 10);
         a.addUnit(s1);
-
+        
         ArrayList<Unit> units2 = new ArrayList<Unit>();
         units2.add(s2);
 

@@ -156,8 +156,15 @@ public class Territory {
     }
 
     public void addFireSource(Player p, ArrayList<Unit> u){
-        whoAttactsMe.add(p);
-        whatAttactsMe.add(u);
+        if(whoAttactsMe.contains(p)){
+            int place = whoAttactsMe.indexOf(p);
+            for (Unit un:u){
+                whatAttactsMe.get(place).add(un);
+            }
+        }else{
+            whoAttactsMe.add(p);
+            whatAttactsMe.add(u);
+        }
     }
 
     private int determineWhoWin(Unit a, Unit b){
