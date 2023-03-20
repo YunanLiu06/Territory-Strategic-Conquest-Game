@@ -100,6 +100,10 @@ public abstract class Player {
         to.addUnit(unit);
     }
 
+    public boolean isLose(){
+        return myTerritories.isEmpty();
+    }
+
     @Override
     public boolean equals(Object o) {
         if(o.getClass() == this.getClass()){
