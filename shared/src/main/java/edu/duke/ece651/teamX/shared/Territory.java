@@ -216,7 +216,7 @@ public class Territory {
         while(whoAttactsMe.size()>1){
             i = fight(i,whoAttactsMe,whatAttactsMe);
             i+=1;
-            if(i == whoAttactsMe.size()){
+            if(i >= whoAttactsMe.size()){
                 i=0;
             }
         }
