@@ -215,21 +215,23 @@ public class Territory {
     }
 
     public void handleFire(){
-        if(unitList.size()>0){
-            whoAttactsMe.add(owner);
-            whatAttactsMe.add(unitList);
-        }
-        int i=0;
-        while(whoAttactsMe.size()>1){
-            i = fight(i,whoAttactsMe,whatAttactsMe);
-            i+=1;
-            if(i >= whoAttactsMe.size()){
-                i=0;
+        if(whatAttactsMe.size()>0){
+            if(unitList.size()>0){
+                whoAttactsMe.add(owner);
+                whatAttactsMe.add(unitList);
             }
+            int i=0;
+            while(whoAttactsMe.size()>1){
+                i = fight(i,whoAttactsMe,whatAttactsMe);
+                i+=1;
+                if(i >= whoAttactsMe.size()){
+                    i=0;
+                }
+            }
+            this.owner.loseTerritory(this);
+            this.owner = whoAttactsMe.get(0);
+            whoAttactsMe.get(0).addTerritory(this);
         }
-        this.owner.loseTerritory(this);
-        this.owner = whoAttactsMe.get(0);
-        whoAttactsMe.get(0).addTerritory(this);
 
         whoAttactsMe.clear();
         whatAttactsMe.clear();
