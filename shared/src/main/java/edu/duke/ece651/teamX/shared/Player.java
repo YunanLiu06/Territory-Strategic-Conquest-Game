@@ -112,7 +112,12 @@ public abstract class Player {
     public boolean isLose(){
         return myTerritories.isEmpty();
     }
-
+    /**
+     * add fire information to territory
+     * @param from
+     * @param to
+     * @param unit
+     */
     public void fire(Territory from, Territory to, Unit unit){
         from.substractUnit(unit);
         ArrayList<Unit> unitList = new ArrayList<Unit>();
