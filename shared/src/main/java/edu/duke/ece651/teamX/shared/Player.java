@@ -113,6 +113,14 @@ public abstract class Player {
         return myTerritories.isEmpty();
     }
 
+    public void fire(Territory from, Territory to, Unit unit){
+        from.substractUnit(unit);
+        ArrayList<Unit> unitList = new ArrayList<Unit>();
+        unitList.add(unit);
+        to.addFireSource(this, unitList);
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if(o.getClass() == this.getClass()){
@@ -121,6 +129,7 @@ public abstract class Player {
         }
         return false;
     }
+
 
 
 }
