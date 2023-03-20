@@ -12,10 +12,18 @@ public class App {
 
   private RiscClient rc;
 
+  /**
+   * This function is to initalize the client
+   * 
+   * @param rc: the client
+   */
   public App(RiscClient rc) {
     this.rc = rc;
   }
 
+  /**
+   * function to start the client code
+   */
   public static void main(String[] args) throws IOException {
     try {
       RiscClient rc = new RiscClient(new Socket("vcm-30720.vm.duke.edu", 5000));

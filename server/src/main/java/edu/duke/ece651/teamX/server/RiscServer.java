@@ -97,6 +97,9 @@ public class RiscServer {
   // call this synchronize threads after the while loop, keep synchronizing
   // threads
 
+  /**
+   * Function to synchronize all the client threads
+   */
   public void synchThreads() throws InterruptedException {
     while (true) {
       while (!isWaiting()) {
@@ -108,6 +111,12 @@ public class RiscServer {
     }
   }
 
+  /**
+   * This function checks if any threads are waiting
+   * 
+   * @returns true if a thread is waiting and is also connected
+   * @returns false if there aren't any threads waiting
+   */
   public Boolean isWaiting() {
     for (ServerIO s : threads) {
       if (s.getState() != State.WAITING && s.getIsConnected() == true) {

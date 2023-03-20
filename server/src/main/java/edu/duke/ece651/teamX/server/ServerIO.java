@@ -40,6 +40,16 @@ public class ServerIO extends Thread {
   // string to state there was an Interrupted Exception Error
   static String IE_ERROR = "Interrupted Exception Error: ";
 
+  /**
+   * Constructor
+   * 
+   * @param socket:  the socket of the client
+   * @param in:      input stream to take in from the client
+   * @param out:     output stream to print to the client
+   * @param gameMap: map of territories of the game
+   * @param lock:    a lock to lock the critical sections of the code
+   * @param isReady
+   */
   public ServerIO(Socket socket, InputStream in, OutputStream out, String name, GameMap gameMap, Lock lock,
       Condition isReady) {
     // initialize IO
@@ -58,6 +68,9 @@ public class ServerIO extends Thread {
     this.isConnected = true;
   }
 
+  /**
+   * return if the client is connected
+   */
   public Boolean getIsConnected() {
     return isConnected;
   }
@@ -71,6 +84,9 @@ public class ServerIO extends Thread {
     return view;
   }
 
+  /**
+   * private helper function to get the number of units in a territory
+   */
   private int getUnitNum(Territory t) {
     int count = 0;
     Iterator<Unit> it = t.getUnits();
@@ -168,9 +184,113 @@ public class ServerIO extends Thread {
     return territory + toAdd;
   }
 
+  /**
+   * This function is to print the users territories along with the units in each
+   * one
+   */
+  private String printTerritoriesAndUnits() {
+    String territory = "\nThis is a list of your territories: \n";
+    String toAdd = "\n";
+    Iterator<Territory> it = player.getTerritories();
+    while (it.hasNext()) {
+      Territory t = it.next();
+      String element = t.getName();
+      Iterator<Territory> adj = gameMap.getAdjacentTerritories(t);
+      int units = getUnitNum(t);
+      toAdd += " " + +units + " units in " + element + " (next to: ";
+      while (adj.hasNext()) {
+        String adjTerritory = adj.next().getName();
+        if (adj.hasNext()) {
+          toAdd += adjTerritory + ", ";
+        } else {
+          toAdd += adjTerritory;
+        }
+      }
+      toAdd += ")\n";
+    }
+
+    return territory + toAdd;
+  }
+
+  /**
+   * private helper function to get the territory based on the name
+   */
+  private Territory getTerritory(String name) {
+    Iterator<Territory> it = player.getTerritories();
+    while (it.hasNext()) {
+      Territory t = it.next();
+      if (t.getName().equals(name)) {
+        return t;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * function to move units for the client
+   */
+  public void move() {
+    try {
+
+      // prompt the user
+      writeObject.writeUTF("Enter the move: <territory from> <territory to> <unit amount>");
+      String moveOrder = readObject.readUTF();
+
+      // split the move order and pass into tryMove
+      String[] split = moveOrder.split(" ");
+      int amount = Integer.parseInt(split[2]);
+      player.tryMove(getTerritory(split[0]), getTerritory(split[1]), new Soldier(amount));
+
+    } catch (IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
+    }
+  }
+
+  /**
+   * function to attack for the client
+   */
+  public void attack() {
+
+  }
+
+  /**
+   * function to commit the moves
+   */
+  public void commit() {
+
+  }
+
+  /**
+   * This funciton is to implement the rest of the game after the
+   * intialization phase and placement phase.
+   * The rest of the game will be played in this function:
+   * for each turn, the client is able to commit their moves until a player loses
+   */
+  public void turnPhase() {
+    try {
+      writeObject.writeUTF("\nGame Map: \n" + printTextMap() + "\n");
+      writeObject.writeUTF(printTerritoriesAndUnits() + "\n");
+      writeObject.writeUTF("\nWhat order would you like to do? Enter m for move, a for attack, and c for commit");
+      String choice = readObject.readUTF();
+      if (choice == "m") {
+        move();
+      } else if (choice == "a") {
+        attack();
+      } else if (choice == "c") {
+        commit();
+      } else {
+        System.out.println("Not valid choice.");
+      }
+    } catch (IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
+    }
+  }
+
   @Override
   public void run() {
     initializationPhase();
     placementPhase();
+    turnPhase();
   }
 }

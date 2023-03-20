@@ -74,4 +74,29 @@ public class ClientIO {
     }
   }
 
+  public void turnPhase() {
+    try {
+      Scanner scan = new Scanner(System.in);
+
+      // print the game map
+      System.out.println(readObject.readUTF());
+
+      // print the territories with the units to the client
+      System.out.println(readObject.readUTF());
+
+      // print the prompt and take in the user's move
+      System.out.println(readObject.readUTF());
+      String move = scan.nextLine();
+      writeObject.writeUTF(move);
+
+      // if move
+      System.out.println(readObject.readUTF());
+      writeObject.writeUTF(scan.nextLine());
+
+      scan.close();
+    } catch (IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
+    }
+  }
+
 }
