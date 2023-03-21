@@ -221,4 +221,15 @@ public class GameMap {
       territory.handleFire();
     }
   }
+
+  /**
+   * Increase the units in every territory
+   * TODO rule may be changed in goal 2, 
+   *      currently hard code to increase one soldier
+   */
+  public void increaseAllTerritoryUnits(){
+    for(Territory territory: territories.keySet()){
+      territory.addUnit(new Soldier(1));
+    }
+  }
 }

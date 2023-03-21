@@ -224,4 +224,28 @@ public class GameMapTest {
     a.addFireSource(p2, units);
     gameMap.handleAllFires();
   }
+
+  @Test
+  public void test_increase_all_territory_by_one_soldier(){
+    int[][] adjacentInfo = {{0,1}, {0,4}, {1,3}, {1,5}, {3,2}, {4,5}, {5,2}};
+    GameMap gameMap = create_move_attack_map(adjacentInfo);
+    
+    Territory a = gameMap.getTerritoryByName("A");
+    Territory b = gameMap.getTerritoryByName("B");
+
+    b.addUnit(new Soldier(1));
+
+    // test none unit in territory
+    assertEquals(false, a.getUnits().hasNext());
+    gameMap.increaseAllTerritoryUnits();
+    Iterator<Unit> uIterator = a.getUnits();
+    assertEquals(true, uIterator.hasNext());
+    assertEquals(1, uIterator.next().amount);
+    assertEquals(false, uIterator.hasNext());
+
+    // test exist 1 unit already
+    uIterator = b.getUnits();
+    assertEquals(2, uIterator.next().amount);
+  }
 }
+
