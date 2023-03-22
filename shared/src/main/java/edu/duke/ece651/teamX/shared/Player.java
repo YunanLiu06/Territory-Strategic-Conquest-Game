@@ -7,7 +7,7 @@ public abstract class Player {
     protected String name;
     protected int numOfTerritory;
     protected ArrayList<Territory> myTerritories = new ArrayList<Territory> ();
-    public int numOfUnitAlreadyPlaced = 0;
+    private int numOfUnitAlreadyPlaced = 0;
 
     /**
      * constructor only name

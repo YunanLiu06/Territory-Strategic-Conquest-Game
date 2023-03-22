@@ -155,6 +155,11 @@ public class Territory {
         return false;
     }
 
+    /**
+     * add FireSource to this territory
+     * @param p
+     * @param u
+     */
     public void addFireSource(Player p, ArrayList<Unit> u){
         if(whoAttackMe.contains(p)){
             int place = whoAttackMe.indexOf(p);
@@ -167,6 +172,12 @@ public class Territory {
         }
     }
 
+    /**
+     * use determinant to determin which units wins the fight
+     * @param a
+     * @param b
+     * @return
+     */
     private int determineWhoWin(Unit a, Unit b){
         boolean res = determinant.determine(a, b, 20, 20);
         if (res){
