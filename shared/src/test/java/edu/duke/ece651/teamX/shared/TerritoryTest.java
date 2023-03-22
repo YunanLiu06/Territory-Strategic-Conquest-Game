@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 
 
@@ -125,5 +126,73 @@ public class TerritoryTest {
         // assertSame(playC, a.getOwner());
 
         
+    }
+
+    @Test
+    public void test_fire_with_add_fire_source(){
+
+        TextPlayer playA = new TextPlayer("PlayerA");
+        TextPlayer playB = new TextPlayer("PlayerB");
+        TextPlayer playC = new TextPlayer("PlayerC");
+        Territory a = new Territory("TerritoryA");
+        Territory b = new Territory("TerritoryB");
+        Territory c = new Territory("TerritoryC");
+        playA.addTerritory(a);
+        playB.addTerritory(b);
+        playC.addTerritory(c);
+        a.addUnit(new Soldier(10));
+        b.addUnit(new Soldier(10));
+        c.addUnit(new Soldier(10));
+        playA.fire(a, c, new Soldier(10));
+        playB.fire(b, c, new Soldier(10));
+        c.handleFire();
+
+        
+    }
+
+    @Test
+    public void test_fire_with_add_fire_source_1(){
+
+        TextPlayer playA = new TextPlayer("PlayerA");
+        TextPlayer playB = new TextPlayer("PlayerB");
+        TextPlayer playC = new TextPlayer("PlayerC");
+        Territory a = new Territory("TerritoryA");
+        Territory b = new Territory("TerritoryB");
+        Territory c = new Territory("TerritoryC");
+        playA.addTerritory(a);
+        playB.addTerritory(b);
+        playC.addTerritory(c);
+        a.addUnit(new Soldier(1));
+        b.addUnit(new Soldier(1));
+        c.addUnit(new Soldier(100));
+        playA.fire(a, c, new Soldier(1));
+        playB.fire(b, c, new Soldier(1));
+        c.handleFire();
+        assertSame(c.getOwner(),playC);
+
+    }
+
+    @Test
+    public void test_fire_with_add_fire_source_2(){
+
+        TextPlayer playA = new TextPlayer("PlayerA");
+        TextPlayer playB = new TextPlayer("PlayerB");
+        TextPlayer playC = new TextPlayer("PlayerC");
+        Territory a = new Territory("TerritoryA");
+        Territory b = new Territory("TerritoryB");
+        Territory c = new Territory("TerritoryC");
+        playA.addTerritory(a);
+        playB.addTerritory(b);
+        playC.addTerritory(c);
+        a.addUnit(new Soldier(100));
+        b.addUnit(new Soldier(1));
+        b.addUnit(new Soldier(1));
+        c.addUnit(new Soldier(1));
+        playA.fire(a, c, new Soldier(100));
+        playB.fire(b, c, new Soldier(1));
+        playB.fire(b, c, new Soldier(1));
+        c.handleFire();
+        assertSame(c.getOwner(),playA);
+
     }
 }
