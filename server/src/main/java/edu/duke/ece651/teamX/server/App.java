@@ -54,6 +54,7 @@ public class App {
    * Create a RiscServer, take in the number of players, run the game
    */
   public static void main(String[] args) throws IOException {
+    try {
     // create App
     App a = new App();
     Integer numPlayers;
@@ -65,5 +66,8 @@ public class App {
     System.out.println("Players can now connect to the game from their machines.\n");
     RiscServer rs = new RiscServer(numPlayers, new ServerSocket(5000));
     rs.run();
+    } catch (IOException e) {
+      return;
+    }
   }
 }

@@ -2,7 +2,7 @@
 Hello, what is the IP of the Server? e.g. vcm-30720.vm.duke.edu
 
 Welcome to the Game of Risc.
-Your Player Name: BLUE
+Your Player Name: GREEN
 Here is the map of the game
 
                          Map                         
@@ -13,37 +13,37 @@ Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
 
 This is a list of your territories: 
 
- Narnia (next to: Midkemia, Roshar)
- Midkemia (next to: Narnia, Oz, Mordor)
- Oz (next to: Midkemia, Gondor, Hogwarts)
- Gondor (next to: Oz, Elantris, Agrabah)
- Elantris (next to: Gondor, Scadrial, Atlantica)
- Scadrial (next to: Elantris, Brigadoon)
+ Roshar (next to: Narnia, Mordor)
+ Mordor (next to: Midkemia, Roshar, Hogwarts)
+ Hogwarts (next to: Oz, Mordor, Agrabah)
+ Agrabah (next to: Gondor, Hogwarts, Atlantica)
+ Atlantica (next to: Elantris, Agrabah, Brigadoon)
+ Brigadoon (next to: Scadrial, Atlantica)
 
 
 
 You are now in the placement phase of the game. This means you will be given 30 units and you will place
 them amongst your territories. Each territory must have units (you can't place 0).
 
-How many units do you want to place in territory Narnia?
+How many units do you want to place in territory Roshar?
 
-How many units do you want to place in territory Midkemia?
+How many units do you want to place in territory Mordor?
 
-How many units do you want to place in territory Oz?
+How many units do you want to place in territory Hogwarts?
 
-How many units do you want to place in territory Gondor?
+How many units do you want to place in territory Agrabah?
 
-How many units do you want to place in territory Elantris?
+How many units do you want to place in territory Atlantica?
 
-How many units do you want to place in territory Scadrial?
+How many units do you want to place in territory Brigadoon?
 
 Your placements are as follows: 
- Narnia: 3 units
- Midkemia: 3 units
- Oz: 3 units
- Gondor: 3 units
- Elantris: 3 units
- Scadrial: 3 units
+ Roshar: 3 units
+ Mordor: 3 units
+ Hogwarts: 3 units
+ Agrabah: 3 units
+ Atlantica: 3 units
+ Brigadoon: 3 units
 
 Other players are still placing their units. Please wait...
 
@@ -59,12 +59,12 @@ Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
 
 This is a list of your territories: 
 
- 3 units in Narnia (next to: Midkemia, Roshar)
- 3 units in Midkemia (next to: Narnia, Oz, Mordor)
- 3 units in Oz (next to: Midkemia, Gondor, Hogwarts)
- 3 units in Gondor (next to: Oz, Elantris, Agrabah)
- 3 units in Elantris (next to: Gondor, Scadrial, Atlantica)
- 3 units in Scadrial (next to: Elantris, Brigadoon)
+ 3 units in Roshar (next to: Narnia, Mordor)
+ 3 units in Mordor (next to: Midkemia, Roshar, Hogwarts)
+ 3 units in Hogwarts (next to: Oz, Mordor, Agrabah)
+ 3 units in Agrabah (next to: Gondor, Hogwarts, Atlantica)
+ 3 units in Atlantica (next to: Elantris, Agrabah, Brigadoon)
+ 3 units in Brigadoon (next to: Scadrial, Atlantica)
 
 
 
@@ -80,11 +80,11 @@ Waiting for other players to commit their moves...
 
 This is a list of your territories: 
 
- 1 units in Narnia (next to: Midkemia, Roshar)
- 5 units in Midkemia (next to: Narnia, Oz, Mordor)
- 1 units in Oz (next to: Midkemia, Gondor, Hogwarts)
- 5 units in Gondor (next to: Oz, Elantris, Agrabah)
- 3 units in Elantris (next to: Gondor, Scadrial, Atlantica)
- 3 units in Scadrial (next to: Elantris, Brigadoon)
+ 1 units in Roshar (next to: Narnia, Mordor)
+ 5 units in Mordor (next to: Midkemia, Roshar, Hogwarts)
+ 1 units in Hogwarts (next to: Oz, Mordor, Agrabah)
+ 5 units in Agrabah (next to: Gondor, Hogwarts, Atlantica)
+ 3 units in Atlantica (next to: Elantris, Agrabah, Brigadoon)
+ 3 units in Brigadoon (next to: Scadrial, Atlantica)
 
 
