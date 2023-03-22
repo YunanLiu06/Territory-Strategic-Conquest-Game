@@ -1,12 +1,9 @@
 This repository holds the Java code for the RISK game.
 
+![pipeline](https://gitlab.oit.duke.edu/yl852/multi-project-gradle-651-team/badges/Development/pipeline.svg)
+![coverage](https://gitlab.oit.duke.edu/yl852/multi-project-gradle-651-team/badges/Development/coverage.svg?job=test)
+
 Group Members: yl852, xm62, xc197, and cc804
-
-![pipeline](https://gitlab.oit.duke.edu/yl852/multi-project-gradle-651-team/badges/master/pipeline.svg)
-![coverage](https://gitlab.oit.duke.edu/yl852/multi-project-gradle-651-team/badges/master/coverage.svg?job=test)
-
-
-
 
 Links:
 1. Task Managment Sheet: https://docs.google.com/spreadsheets/d/1_RX_TUBK8XSad400mmBN2CcvGU30YDEz/edit#gid=1788131893
