@@ -31,7 +31,6 @@ public class ServerIO extends Thread {
   private Condition isReady;
   private Boolean isConnected;
   private ArrayList<String> playerMoves;
-  private ArrayList<String> attackMoves;
 
   // string to state that there was an IOException in ther server
   static String CONSTRUCTOR_ERROR = "Constructor Error: ";
@@ -254,8 +253,15 @@ public class ServerIO extends Thread {
   /**
    * function to attack for the client
    */
-  public void attack() {
-    
+  public void attack(String attackOrder) {
+    //split the attack order
+    String[] split = attackOrder.split(" ");
+    int amount = Integer.parseInt(split[2]);
+    Territory from = gameMap.getTerritoryByName(split[0]);
+    Territory to = gameMap.getTerritoryByName(split[1]);
+
+    //pass fire into territory
+    player.fire(from, to, new Soldier(amount));
   }
 
   /**
@@ -283,7 +289,10 @@ public class ServerIO extends Thread {
           playerMoves.add(moveOrder);
           //writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");          
         } else if (choice.equals("a")) {
-          attack();
+          //prompt the user
+          writeObject.writeUTF("Enter the attack: <territory from> <territory to> <unit amount>");
+          String attackOrder = readObject.readUTF();
+          attack(attackOrder);
         } else if (choice.equals("c")) {
           writeObject.writeUTF("Waiting for other players to commit their moves...");
           lock.lock();
@@ -292,6 +301,7 @@ public class ServerIO extends Thread {
           if(!playerMoves.isEmpty()) {
             move(playerMoves);
           }
+          gameMap.handleAllFires();
           writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
           break;
         } else {

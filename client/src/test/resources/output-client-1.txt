@@ -1,4 +1,6 @@
 
+Hello, what is the IP of the Server? e.g. vcm-30720.vm.duke.edu
+
 Welcome to the Game of Risc.
 Your Player Name: BLUE
 Here is the map of the game
@@ -37,11 +39,11 @@ How many units do you want to place in territory Scadrial?
 
 Your placements are as follows: 
  Narnia: 3 units
- Midkemia: 4 units
- Oz: 5 units
- Gondor: 6 units
- Elantris: 7 units
- Scadrial: 8 units
+ Midkemia: 3 units
+ Oz: 3 units
+ Gondor: 3 units
+ Elantris: 3 units
+ Scadrial: 3 units
 
 Other players are still placing their units. Please wait...
 
@@ -58,31 +60,12 @@ Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
 This is a list of your territories: 
 
  3 units in Narnia (next to: Midkemia, Roshar)
- 4 units in Midkemia (next to: Narnia, Oz, Mordor)
- 5 units in Oz (next to: Midkemia, Gondor, Hogwarts)
- 6 units in Gondor (next to: Oz, Elantris, Agrabah)
- 7 units in Elantris (next to: Gondor, Scadrial, Atlantica)
- 8 units in Scadrial (next to: Elantris, Brigadoon)
-
-
-
-What order would you like to do? Enter m for move, a for attack, and c for commit
-Enter the move: <territory from> <territory to> <unit amount>
-
-What order would you like to do? Enter m for move, a for attack, and c for commit
-Enter the move: <territory from> <territory to> <unit amount>
-
-What order would you like to do? Enter m for move, a for attack, and c for commit
-Waiting for other players to commit their moves...
-
-
-This is a list of your territories: 
-
- 1 units in Narnia (next to: Midkemia, Roshar)
- 6 units in Midkemia (next to: Narnia, Oz, Mordor)
+ 3 units in Midkemia (next to: Narnia, Oz, Mordor)
  3 units in Oz (next to: Midkemia, Gondor, Hogwarts)
- 8 units in Gondor (next to: Oz, Elantris, Agrabah)
- 7 units in Elantris (next to: Gondor, Scadrial, Atlantica)
- 8 units in Scadrial (next to: Elantris, Brigadoon)
+ 3 units in Gondor (next to: Oz, Elantris, Agrabah)
+ 3 units in Elantris (next to: Gondor, Scadrial, Atlantica)
+ 3 units in Scadrial (next to: Elantris, Brigadoon)
 
 
+
+What order would you like to do? Enter m for move, a for attack, and c for commit

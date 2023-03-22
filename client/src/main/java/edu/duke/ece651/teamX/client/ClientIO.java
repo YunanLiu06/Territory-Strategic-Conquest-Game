@@ -98,6 +98,12 @@ public class ClientIO {
           System.out.println(readObject.readUTF());
           break;
         }
+        //if option is to attack
+        if(option.equals("a")) {
+          System.out.println(readObject.readUTF());
+          String attackOrder = scan.nextLine();
+          writeObject.writeUTF(attackOrder);
+        }
       }
       System.out.println(readObject.readUTF());
       scan.close();
