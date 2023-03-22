@@ -12,8 +12,8 @@ public class Territory {
     private ArrayList<Unit> unitList = new ArrayList<Unit>();
     private Player owner;
     private ArrayList<Territory> adjacentTerritoy = new ArrayList<Territory>();
-    public ArrayList<Player> whoAttactsMe = new ArrayList<Player>();
-    public ArrayList<ArrayList<Unit>> whatAttactsMe = new ArrayList<ArrayList<Unit>>();
+    public ArrayList<Player> whoAttackMe = new ArrayList<Player>();
+    public ArrayList<ArrayList<Unit>> whatAttackMe = new ArrayList<ArrayList<Unit>>();
     public Determinant determinant = new DiceGame();
 
     
@@ -156,14 +156,14 @@ public class Territory {
     }
 
     public void addFireSource(Player p, ArrayList<Unit> u){
-        if(whoAttactsMe.contains(p)){
-            int place = whoAttactsMe.indexOf(p);
+        if(whoAttackMe.contains(p)){
+            int place = whoAttackMe.indexOf(p);
             for (Unit un:u){
-                whatAttactsMe.get(place).add(un);
+                whatAttackMe.get(place).add(un);
             }
         }else{
-            whoAttactsMe.add(p);
-            whatAttactsMe.add(u);
+            whoAttackMe.add(p);
+            whatAttackMe.add(u);
         }
     }
 
@@ -215,26 +215,26 @@ public class Territory {
     }
 
     public void handleFire(){
-        if(whatAttactsMe.size()>0){
+        if(whatAttackMe.size()>0){
             if(unitList.size()>0){
-                whoAttactsMe.add(owner);
-                whatAttactsMe.add(unitList);
+                whoAttackMe.add(owner);
+                whatAttackMe.add(unitList);
             }
             int i=0;
-            while(whoAttactsMe.size()>1){
-                i = fight(i,whoAttactsMe,whatAttactsMe);
+            while(whoAttackMe.size()>1){
+                i = fight(i,whoAttackMe,whatAttackMe);
                 i+=1;
-                if(i >= whoAttactsMe.size()){
+                if(i >= whoAttackMe.size()){
                     i=0;
                 }
             }
             this.owner.loseTerritory(this);
-            this.owner = whoAttactsMe.get(0);
-            whoAttactsMe.get(0).addTerritory(this);
+            this.owner = whoAttackMe.get(0);
+            whoAttackMe.get(0).addTerritory(this);
         }
 
-        whoAttactsMe.clear();
-        whatAttactsMe.clear();
+        whoAttackMe.clear();
+        whatAttackMe.clear();
     }
 
     public void changeOwner(Player p){
