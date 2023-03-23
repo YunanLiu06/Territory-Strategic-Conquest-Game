@@ -172,6 +172,16 @@ public class Territory {
         }
     }
 
+     /**
+     * delete fire source from this player
+     * @param p player
+     */
+    public synchronized void deleteFireSource(Player p){
+        int place = whoAttackMe.indexOf(p);
+        whoAttackMe.remove(place);
+        whatAttackMe.remove(place);
+    }
+
     /**
      * use determinant to determin which units wins the fight
      * @param a

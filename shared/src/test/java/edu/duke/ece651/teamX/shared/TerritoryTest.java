@@ -189,6 +189,8 @@ public class TerritoryTest {
         b.addUnit(new Soldier(1));
         c.addUnit(new Soldier(1));
         playA.fire(a, c, new Soldier(100));
+        playA.retrace();
+        playA.fire(a, c, new Soldier(100));
         playB.fire(b, c, new Soldier(1));
         playB.fire(b, c, new Soldier(1));
         Iterator<Territory> itC = playC.getTerritories();

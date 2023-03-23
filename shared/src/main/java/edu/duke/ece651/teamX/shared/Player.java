@@ -8,6 +8,9 @@ public abstract class Player {
     protected int numOfTerritory;
     protected ArrayList<Territory> myTerritories = new ArrayList<Territory> ();
     private int numOfUnitAlreadyPlaced = 0;
+    private ArrayList<TraceCommand> log = new ArrayList<TraceCommand> ();
+
+
 
     /**
      * constructor only name
@@ -99,6 +102,7 @@ public abstract class Player {
      * @param unit
      */
     public void tryMove(Territory from, Territory to, Unit unit){
+        log.add(new TraceCommand("Move", from, to, unit,this));
         if(!from.getOwner().equals(to.getOwner())){
             throw new IllegalArgumentException("two territory must be owned by the same player");
         }
@@ -119,10 +123,30 @@ public abstract class Player {
      * @param unit
      */
     public void fire(Territory from, Territory to, Unit unit){
+        log.add(new TraceCommand("Fire", from, to, unit, this));
         from.substractUnit(unit);
         ArrayList<Unit> unitList = new ArrayList<Unit>();
         unitList.add(unit);
         to.addFireSource(this, unitList);
+    }
+
+    /**
+     * clear log
+     */
+    public void clearLog(){
+        this.log.clear();
+    }
+
+
+    /**
+     * retrace base on log
+     */
+    public void retrace(){
+        for(TraceCommand t:this.log){
+            t.undo();
+        }
+
+        this.log.clear();
     }
 
 
