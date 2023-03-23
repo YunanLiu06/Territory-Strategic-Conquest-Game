@@ -242,6 +242,7 @@ public class Territory {
             this.owner.loseTerritory(this);
             this.owner = whoAttackMe.get(0);
             whoAttackMe.get(0).addTerritory(this);
+			this.unitList = whatAttackMe.get(0);
         }
 
         whoAttackMe.clear();
