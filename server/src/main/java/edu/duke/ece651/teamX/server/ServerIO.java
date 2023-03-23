@@ -469,24 +469,29 @@ public class ServerIO extends Thread {
 
   @Override
   public void run() {
-    initializationPhase();
-    placementPhase();
-    turnPhase();
-    try {
-      lock.lock();
-      isReady.await();
-      lock.unlock();
-      if(id == 1) {
-        gameMap.handleAllFires();
-        gameMap.increaseAllTerritoryUnits();
+    // while(!player.isLose) {
+      initializationPhase();
+      placementPhase();
+      turnPhase();
+      try {
+        lock.lock();
+        isReady.await();
+        lock.unlock();
+        if(id == 1) {
+          gameMap.handleAllFires();
+          gameMap.increaseAllTerritoryUnits();
+        }
+        lock.lock();
+        isReady.await();
+        lock.unlock();
+        writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
+      } catch(InterruptedException e) {
+        System.out.println(IE_ERROR + e + "\n");
+        return;
+      } catch (IOException e) {
+        System.out.println(IO_ERROR + e + "\n");
+        return;
       }
-       writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
-    } catch(InterruptedException e) {
-      System.out.println(IE_ERROR + e + "\n");
-      return;
-    } catch (IOException e) {
-      System.out.println(IO_ERROR + e + "\n");
-      return;
-    }
+      // }
   }
 }
