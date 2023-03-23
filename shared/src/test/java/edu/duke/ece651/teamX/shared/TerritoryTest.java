@@ -191,8 +191,17 @@ public class TerritoryTest {
         playA.fire(a, c, new Soldier(100));
         playB.fire(b, c, new Soldier(1));
         playB.fire(b, c, new Soldier(1));
+        Iterator<Territory> itC = playC.getTerritories();
         c.handleFire();
         assertSame(c.getOwner(),playA);
+        Iterator<Territory> it = playA.getTerritories();
+        assertTrue(it.hasNext());
+        assertSame(a,it.next());
+        assertSame(c,it.next());
+        assertFalse(it.hasNext());
+        itC = playC.getTerritories();
+        assertFalse(itC.hasNext());
+        
 
     }
 }
