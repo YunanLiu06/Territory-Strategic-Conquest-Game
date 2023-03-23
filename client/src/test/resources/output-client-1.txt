@@ -75,14 +75,5 @@ What order would you like to do? Enter m for move, a for attack, and c for commi
 
 
 Waiting for other players to commit their moves...
-
-
-This is a list of your territories: 
-
- 7 units in Mordor (next to: Midkemia, Roshar, Hogwarts)
- 5 units in Hogwarts (next to: Oz, Mordor, Agrabah)
- 5 units in Agrabah (next to: Gondor, Hogwarts, Atlantica)
- 5 units in Atlantica (next to: Elantris, Agrabah, Brigadoon)
- 5 units in Brigadoon (next to: Scadrial, Atlantica)
-
+IO Error: java.io.EOFException
 

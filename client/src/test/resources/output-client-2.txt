@@ -73,25 +73,7 @@ Enter the attack: <territory from> <territory to> <unit amount>
 
 What order would you like to do? Enter m for move, a for attack, and c for commit
 
-ERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.
-
-What order would you like to do? Enter m for move, a for attack, and c for commit
-Enter the attack: <territory from> <territory to> <unit amount>
-
-What order would you like to do? Enter m for move, a for attack, and c for commit
-
 
 Waiting for other players to commit their moves...
-
-
-This is a list of your territories: 
-
- 1 units in Narnia (next to: Midkemia, Roshar)
- 5 units in Midkemia (next to: Narnia, Oz, Mordor)
- 5 units in Oz (next to: Midkemia, Gondor, Hogwarts)
- 5 units in Gondor (next to: Oz, Elantris, Agrabah)
- 5 units in Elantris (next to: Gondor, Scadrial, Atlantica)
- 5 units in Scadrial (next to: Elantris, Brigadoon)
- 0 units in Roshar (next to: Narnia, Mordor)
-
+IO Error: java.io.EOFException
 
