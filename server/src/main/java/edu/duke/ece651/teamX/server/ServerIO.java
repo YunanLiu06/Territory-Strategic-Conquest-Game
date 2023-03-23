@@ -131,10 +131,17 @@ public class ServerIO extends Thread {
           while(true) {
             String prompt = "\nHow many units do you want to place in territory " + t.getName() + "?";
             writeObject.writeUTF(prompt);
-          
-            String temp = readObject.readUTF();
-            int units = Integer.parseInt(temp);
 
+            String temp = readObject.readUTF();
+            int units = 0;
+            if(temp.length() == 0) {
+              units = 0;
+            }
+            try {
+              units = Integer.parseInt(temp);
+            } catch (NumberFormatException e) {
+              units = 0;
+            }
             //check if unit number being passed in is > 0 and < 30
             if(units > 0 && units <= unitNum) {
               Soldier unit = new Soldier(units);

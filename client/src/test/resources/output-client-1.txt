@@ -27,21 +27,11 @@ them amongst your territories. Each territory must have units (you can't place 0
 
 How many units do you want to place in territory Narnia?
 
-How many units do you want to place in territory Midkemia?
+You're trying to place either 0 units or more units than you have available
 
-How many units do you want to place in territory Oz?
+How many units do you want to place in territory Narnia?
 
-How many units do you want to place in territory Gondor?
-
-How many units do you want to place in territory Elantris?
-
-How many units do you want to place in territory Scadrial?
-
-ERROR: YOU DIDN'T PLACE ALL 30 UNITS. PLACEMENT PHASE WILL BEGIN AGAIN: 
-
-
-You are now in the placement phase of the game. This means you will be given 30 units and you will place
-them amongst your territories. Each territory must have units (you can't place 0).
+You're trying to place either 0 units or more units than you have available
 
 How many units do you want to place in territory Narnia?
 
