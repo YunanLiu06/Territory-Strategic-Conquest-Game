@@ -217,10 +217,12 @@ public class Territory {
             a.substractAmount(1);
         }
         boolean modifyIntex =  deleteDeadUnits(i, a, whoAttactsMe, whatAttactsMe);
-        deleteDeadUnits(next, b, whoAttactsMe, whatAttactsMe);
         if (modifyIntex){
             i-=1;
-        }
+			b-=1;
+        }       
+		deleteDeadUnits(next, b, whoAttactsMe, whatAttactsMe);
+
 
         return i;
     }
