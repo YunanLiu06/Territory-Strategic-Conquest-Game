@@ -329,6 +329,11 @@ public class ServerIO extends Thread {
         writeObject.writeUTF("\nWhat order would you like to do? Enter m for move, a for attack, and c for commit");
         String choice = readObject.readUTF();
 
+        if(choice.length() == 0 || choice.length() > 1) {
+          writeObject.writeUTF("\nERROR: CHOICE IS NOT VALID");
+          continue;
+        }
+
         if (choice.equals("m")) {
             // prompt the user
           writeObject.writeUTF("Enter the move: <territory from> <territory to> <unit amount>");
@@ -352,7 +357,8 @@ public class ServerIO extends Thread {
           writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
           break;
         } else {
-          System.out.println("Not valid choice.");
+          writeObject.writeUTF("\nERROR: CHOICE IS NOT VALID");
+          continue;
         }
       }
     } catch (IOException e) {

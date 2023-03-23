@@ -106,6 +106,7 @@ public class ClientIO {
         System.out.println(readObject.readUTF());
         String option = scan.nextLine();
         writeObject.writeUTF(option);
+
         if(option.equals("m")) {
           // if move
           System.out.println(readObject.readUTF());
@@ -113,15 +114,19 @@ public class ClientIO {
           writeObject.writeUTF(moveOrder);
         }
         //if option is to commit
-        if(option.equals("c")) {
+        else if(option.equals("c")) {
           System.out.println(readObject.readUTF());
           break;
         }
         //if option is to attack
-        if(option.equals("a")) {
+        else if(option.equals("a")) {
           System.out.println(readObject.readUTF());
           String attackOrder = scan.nextLine();
           writeObject.writeUTF(attackOrder);
+        }
+        else {
+          System.out.println(readObject.readUTF());
+          continue;
         }
       }
       System.out.println(readObject.readUTF());

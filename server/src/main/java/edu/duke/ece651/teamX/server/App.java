@@ -35,8 +35,12 @@ public class App {
     Integer numPlayers;
     while (true) {
       System.out.println(PLAYER_PROMPT);
+      String num = scan.nextLine();
+      if(num.length() == 0) {
+        continue;
+      }
       try {
-        numPlayers = Integer.parseInt(scan.nextLine());
+        numPlayers = Integer.parseInt(num);
       } catch (NumberFormatException e) {
         continue;
       }

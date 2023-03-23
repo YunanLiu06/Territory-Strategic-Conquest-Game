@@ -23,6 +23,9 @@ public class App {
       System.out.println("\nHello, what is the IP of the Server? e.g. vcm-30720.vm.duke.edu");
       Scanner scan = new Scanner(System.in);
       String ip = scan.nextLine();
+      if(ip.length() == 0) {
+        getIPAddress();
+      }
       return ip;
   }
 
@@ -30,13 +33,22 @@ public class App {
    * function to start the client code
    */
   public static void main(String[] args) throws IOException {
-    try {
+    
       App a = new App();
-      String ip = a.getIPAddress();
-      RiscClient rc = new RiscClient(new Socket(ip, 5000));
+      RiscClient rc;
+      while(true) {
+        String ip = a.getIPAddress();
+        try {
+          rc = new RiscClient(new Socket(ip, 5000));
+        } catch(UnknownHostException e) {
+          System.out.println("\nThe IP Address isn't found");
+          continue;
+        }
+        break;
+      }
       rc.run();
-    } catch (UnknownHostException e) {
+     /*catch (UnknownHostException e) {
       e.printStackTrace();
-    }
+      }*/
   }
 }
