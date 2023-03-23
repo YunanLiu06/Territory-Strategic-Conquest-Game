@@ -146,11 +146,18 @@ public class ClientIO {
           continue;
         }
       }
-      System.out.println(readObject.readUTF());
       scan.close();
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
     }
   }
 
+  public void printUpdate() {
+    try {
+     System.out.println(readObject.readUTF());
+    } catch(IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
+    }
+  }
+    
 }

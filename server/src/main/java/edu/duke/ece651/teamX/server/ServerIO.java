@@ -432,7 +432,6 @@ public class ServerIO extends Thread {
           //do player's orders
           doMoves(playerMoves);
           doAttacks(playerAttacks);
-          writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
           break;
 
         } else {
@@ -456,8 +455,12 @@ public class ServerIO extends Thread {
       lock.lock();
       isReady.await();
       lock.unlock();
-    } catch(InterruptedException e) {
       gameMap.handleAllFires();
+      writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
+    } catch(InterruptedException e) {
+      System.out.println(IE_ERROR + e + "\n");
+    } catch (IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
     }
   }
 }

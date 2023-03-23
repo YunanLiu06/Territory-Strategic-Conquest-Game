@@ -1,2 +1,88 @@
 
 Hello, what is the IP of the Server? e.g. vcm-30720.vm.duke.edu
+
+Welcome to the Game of Risc.
+Your Player Name: GREEN
+Here is the map of the game
+
+                         Map                         
+--------------------------------------------------
+Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial, 
+Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
+
+
+This is a list of your territories: 
+
+ Roshar (next to: Narnia, Mordor)
+ Mordor (next to: Midkemia, Roshar, Hogwarts)
+ Hogwarts (next to: Oz, Mordor, Agrabah)
+ Agrabah (next to: Gondor, Hogwarts, Atlantica)
+ Atlantica (next to: Elantris, Agrabah, Brigadoon)
+ Brigadoon (next to: Scadrial, Atlantica)
+
+
+
+You are now in the placement phase of the game. This means you will be given 30 units and you will place
+them amongst your territories. Each territory must have units (you can't place 0).
+
+How many units do you want to place in territory Roshar?
+
+How many units do you want to place in territory Mordor?
+
+How many units do you want to place in territory Hogwarts?
+
+How many units do you want to place in territory Agrabah?
+
+How many units do you want to place in territory Atlantica?
+
+How many units do you want to place in territory Brigadoon?
+
+Your placements are as follows: 
+ Roshar: 5 units
+ Mordor: 5 units
+ Hogwarts: 5 units
+ Agrabah: 5 units
+ Atlantica: 5 units
+ Brigadoon: 5 units
+
+Other players are still placing their units. Please wait...
+
+Done with placement phase. The game will now begin!
+
+Game Map: 
+                         Map                         
+--------------------------------------------------
+Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial, 
+Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
+
+
+
+This is a list of your territories: 
+
+ 5 units in Roshar (next to: Narnia, Mordor)
+ 5 units in Mordor (next to: Midkemia, Roshar, Hogwarts)
+ 5 units in Hogwarts (next to: Oz, Mordor, Agrabah)
+ 5 units in Agrabah (next to: Gondor, Hogwarts, Atlantica)
+ 5 units in Atlantica (next to: Elantris, Agrabah, Brigadoon)
+ 5 units in Brigadoon (next to: Scadrial, Atlantica)
+
+
+
+What order would you like to do? Enter m for move, a for attack, and c for commit
+Enter the move: <territory from> <territory to> <unit amount>
+
+What order would you like to do? Enter m for move, a for attack, and c for commit
+
+
+Waiting for other players to commit their moves...
+
+
+This is a list of your territories: 
+
+ 7 units in Mordor (next to: Midkemia, Roshar, Hogwarts)
+ 5 units in Hogwarts (next to: Oz, Mordor, Agrabah)
+ 5 units in Agrabah (next to: Gondor, Hogwarts, Atlantica)
+ 5 units in Atlantica (next to: Elantris, Agrabah, Brigadoon)
+ 5 units in Brigadoon (next to: Scadrial, Atlantica)
+
+
