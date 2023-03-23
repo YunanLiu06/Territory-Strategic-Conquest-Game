@@ -63,7 +63,7 @@ public abstract class Player {
         if(!this.myTerritories.contains(newTerritory)){
             throw new IllegalArgumentException("Territory is not occupied by this player");
         }else{
-            myTerritories.remove(newTerritory);
+            myTerritories.remove(myTerritories.indexOf(newTerritory));
         }
     }
 
