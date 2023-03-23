@@ -31,6 +31,7 @@ public class ServerIO extends Thread {
   private Condition isReady;
   private Boolean isConnected;
   private ArrayList<String> playerMoves;
+  private ArrayList<String> playerAttacks;
 
   // string to state that there was an IOException in ther server
   static String CONSTRUCTOR_ERROR = "Constructor Error: ";
@@ -68,6 +69,7 @@ public class ServerIO extends Thread {
     this.isReady = isReady;
     this.isConnected = true;
     playerMoves = new ArrayList<String>();
+    playerAttacks = new ArrayList<String>();
   }
 
   /**
@@ -302,6 +304,24 @@ public class ServerIO extends Thread {
       return true;
   }
 
+  private Boolean checkAttacks(ArrayList<String> playerAttacks) {
+    for(int i = 0; i < playerAttacks.size(); i++) {
+        RuleChecker playerAttackRuleChecker;
+        // split the move order and pass into tryMove
+        String attackOrder = playerAttacks.get(i);
+        String[] split = attackOrder.split(" ");
+        int amount = Integer.parseInt(split[2]);
+        Territory from = gameMap.getTerritoryByName(split[0]);
+        Territory to = gameMap.getTerritoryByName(split[1]);
+        playerAttackRuleChecker = new PlayerAttackRuleCheck(from,to,amount);
+        if(playerAttackRuleChecker.checkRule() == false) {
+          return false;
+        }
+      }
+
+      return true;
+  }
+
   /**
      private helper function to do the moves once they're validated
    */
@@ -322,15 +342,19 @@ public class ServerIO extends Thread {
   /**
    * function to attack for the client
    */
-  public void attack(String attackOrder) {
-    //split the attack order
-    String[] split = attackOrder.split(" ");
-    int amount = Integer.parseInt(split[2]);
-    Territory from = gameMap.getTerritoryByName(split[0]);
-    Territory to = gameMap.getTerritoryByName(split[1]);
+  private void doAttacks(ArrayList<String> playerAttacks) {
+    for(int i = 0; i < playerAttacks.size(); i++) {
 
-    //pass fire into territory
-    player.fire(from, to, new Soldier(amount));
+      String attackOrder = playerAttacks.get(i);
+      String[] split = attackOrder.split(" ");
+
+      int amount = Integer.parseInt(split[2]);
+      Territory from = gameMap.getTerritoryByName(split[0]);
+      Territory to = gameMap.getTerritoryByName(split[1]);
+       
+      player.fire(from, to, new Soldier(amount));
+    }
+    gameMap.handleAllFires();
   }
 
   /**
@@ -376,23 +400,26 @@ public class ServerIO extends Thread {
             continue;
 
           } else {
-            attack(attackOrder);
+            //attack(attackOrder);
+            playerAttacks.add(attackOrder);
           }
 
         } else if (choice.equals("c")) {
           //error check moves and attacks
           //if anything is wrong, redo turn
           //if everything is fine, wait for other players to commit moves
-          if(!playerMoves.isEmpty()) {
+          if(!playerMoves.isEmpty() || !playerAttacks.isEmpty()) {
             try {
-              if(!checkMoves(playerMoves)) {
+              if(!checkMoves(playerMoves) || !checkAttacks(playerAttacks)) {
                 playerMoves.clear();
+                playerAttacks.clear();
                 writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
                 //may have to change
                 continue;
               }
             } catch(IllegalArgumentException e) {
                playerMoves.clear();
+               playerAttacks.clear();
                writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
                //may have to change
                continue;
@@ -405,7 +432,7 @@ public class ServerIO extends Thread {
           lock.unlock();
           //do player's orders
           doMoves(playerMoves);
-          gameMap.handleAllFires();
+          doAttacks(playerAttacks);
           writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
           break;
 
