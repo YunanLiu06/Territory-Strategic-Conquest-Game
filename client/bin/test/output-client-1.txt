@@ -2,7 +2,7 @@
 Hello, what is the IP of the Server? e.g. vcm-30720.vm.duke.edu
 
 Welcome to the Game of Risc.
-Your Player Name: GREEN
+Your Player Name: BLUE
 Here is the map of the game
 
                          Map                         
@@ -13,37 +13,37 @@ Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
 
 This is a list of your territories: 
 
- Roshar (next to: Narnia, Mordor)
- Mordor (next to: Midkemia, Roshar, Hogwarts)
- Hogwarts (next to: Oz, Mordor, Agrabah)
- Agrabah (next to: Gondor, Hogwarts, Atlantica)
- Atlantica (next to: Elantris, Agrabah, Brigadoon)
- Brigadoon (next to: Scadrial, Atlantica)
+ Narnia (next to: Midkemia, Roshar)
+ Midkemia (next to: Narnia, Oz, Mordor)
+ Oz (next to: Midkemia, Gondor, Hogwarts)
+ Gondor (next to: Oz, Elantris, Agrabah)
+ Elantris (next to: Gondor, Scadrial, Atlantica)
+ Scadrial (next to: Elantris, Brigadoon)
 
 
 
 You are now in the placement phase of the game. This means you will be given 30 units and you will place
 them amongst your territories. Each territory must have units (you can't place 0).
 
-How many units do you want to place in territory Roshar?
+How many units do you want to place in territory Narnia?
 
-How many units do you want to place in territory Mordor?
+How many units do you want to place in territory Midkemia?
 
-How many units do you want to place in territory Hogwarts?
+How many units do you want to place in territory Oz?
 
-How many units do you want to place in territory Agrabah?
+How many units do you want to place in territory Gondor?
 
-How many units do you want to place in territory Atlantica?
+How many units do you want to place in territory Elantris?
 
-How many units do you want to place in territory Brigadoon?
+How many units do you want to place in territory Scadrial?
 
 Your placements are as follows: 
- Roshar: 5 units
- Mordor: 5 units
- Hogwarts: 5 units
- Agrabah: 5 units
- Atlantica: 5 units
- Brigadoon: 5 units
+ Narnia: 5 units
+ Midkemia: 5 units
+ Oz: 5 units
+ Gondor: 5 units
+ Elantris: 5 units
+ Scadrial: 5 units
 
 Other players are still placing their units. Please wait...
 
@@ -59,17 +59,20 @@ Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
 
 This is a list of your territories: 
 
- 5 units in Roshar (next to: Narnia, Mordor)
- 5 units in Mordor (next to: Midkemia, Roshar, Hogwarts)
- 5 units in Hogwarts (next to: Oz, Mordor, Agrabah)
- 5 units in Agrabah (next to: Gondor, Hogwarts, Atlantica)
- 5 units in Atlantica (next to: Elantris, Agrabah, Brigadoon)
- 5 units in Brigadoon (next to: Scadrial, Atlantica)
+ 5 units in Narnia (next to: Midkemia, Roshar)
+ 5 units in Midkemia (next to: Narnia, Oz, Mordor)
+ 5 units in Oz (next to: Midkemia, Gondor, Hogwarts)
+ 5 units in Gondor (next to: Oz, Elantris, Agrabah)
+ 5 units in Elantris (next to: Gondor, Scadrial, Atlantica)
+ 5 units in Scadrial (next to: Elantris, Brigadoon)
 
 
 
 What order would you like to do? Enter m for move, a for attack, and c for commit
 Enter the move: <territory from> <territory to> <unit amount>
+
+What order would you like to do? Enter m for move, a for attack, and c for commit
+Enter the attack: <territory from> <territory to> <unit amount>
 
 What order would you like to do? Enter m for move, a for attack, and c for commit
 
@@ -79,11 +82,12 @@ Waiting for other players to commit their moves...
 
 This is a list of your territories: 
 
- 3 units in Roshar (next to: Narnia, Mordor)
- 7 units in Mordor (next to: Midkemia, Roshar, Hogwarts)
- 5 units in Hogwarts (next to: Oz, Mordor, Agrabah)
- 5 units in Agrabah (next to: Gondor, Hogwarts, Atlantica)
- 5 units in Atlantica (next to: Elantris, Agrabah, Brigadoon)
- 5 units in Brigadoon (next to: Scadrial, Atlantica)
+ 1 units in Narnia (next to: Midkemia, Roshar)
+ 6 units in Midkemia (next to: Narnia, Oz, Mordor)
+ 6 units in Oz (next to: Midkemia, Gondor, Hogwarts)
+ 6 units in Gondor (next to: Oz, Elantris, Agrabah)
+ 6 units in Elantris (next to: Gondor, Scadrial, Atlantica)
+ 6 units in Scadrial (next to: Elantris, Brigadoon)
+ 6 units in Mordor (next to: Midkemia, Roshar, Hogwarts)
 
 

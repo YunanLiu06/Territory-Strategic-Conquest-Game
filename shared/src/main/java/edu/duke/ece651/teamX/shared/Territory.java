@@ -105,11 +105,11 @@ public class Territory {
     public void addUnit(Unit unit){
         int flag = 0;
         for(Unit e:unitList){
-            if(e.getClass().equals(unit.getClass())){
+            // if(e.getClass().equals(unit.getClass())){
                 e.addAmount(unit.getAmount());
                 flag = 1;
                 break;
-            }
+            // }
         }
         if(flag == 1){
             return;
@@ -125,7 +125,7 @@ public class Territory {
     public void substractUnit(Unit unit){
         int flag = 0;
         for(Unit e:unitList){
-            if(e.getClass().equals(unit.getClass())){
+            // if(e.getClass().equals(unit.getClass())){
                 if(e.getAmount()<unit.getAmount()){
                     throw new IllegalArgumentException("cannot substract, not enough units");
                 }
@@ -135,7 +135,7 @@ public class Territory {
                 }
                 flag = 1;
                 break;
-            }
+            // }
         }
         if(flag == 1){
             return;
