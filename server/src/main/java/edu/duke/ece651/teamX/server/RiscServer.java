@@ -66,14 +66,14 @@ public class RiscServer {
   public void run() throws IOException {
     int num = 1;
     while (num <= numPlayers) {
-
+      
       try {
         // create a socket for the client
         final Socket client_socket = acceptOrNull();
         String name = playerNames.get(num - 1);
         // create an instance of ServerIO, which handles the IO for the server
         ServerIO serverIO = new ServerIO(client_socket, client_socket.getInputStream(),
-            client_socket.getOutputStream(), name, gameMap, lock, isReady);
+                                         client_socket.getOutputStream(), name, gameMap, lock, isReady, num);
         threads.add(serverIO);
         // start the thread
         serverIO.start();

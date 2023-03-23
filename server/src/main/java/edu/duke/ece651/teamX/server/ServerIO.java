@@ -32,6 +32,7 @@ public class ServerIO extends Thread {
   private Boolean isConnected;
   private ArrayList<String> playerMoves;
   private ArrayList<String> playerAttacks;
+  private int id;
 
   // string to state that there was an IOException in ther server
   static String CONSTRUCTOR_ERROR = "Constructor Error: ";
@@ -53,7 +54,7 @@ public class ServerIO extends Thread {
    * @param isReady
    */
   public ServerIO(Socket socket, InputStream in, OutputStream out, String name, GameMap gameMap, Lock lock,
-      Condition isReady) {
+                  Condition isReady, int id) {
     // initialize IO
     this.socket = socket;
     this.in = in;
@@ -70,6 +71,7 @@ public class ServerIO extends Thread {
     this.isConnected = true;
     playerMoves = new ArrayList<String>();
     playerAttacks = new ArrayList<String>();
+    this.id = id;
   }
 
   /**
@@ -407,9 +409,9 @@ public class ServerIO extends Thread {
           //error check moves and attacks
           //if anything is wrong, redo turn
           //if everything is fine, wait for other players to commit moves
-          if(!playerMoves.isEmpty() || !playerAttacks.isEmpty()) {
+          if(!playerMoves.isEmpty()) {
             try {
-              if(!checkMoves(playerMoves) || !checkAttacks(playerAttacks)) {
+              if(!checkMoves(playerMoves)) {
                 playerMoves.clear();
                 playerAttacks.clear();
                 writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
@@ -425,12 +427,31 @@ public class ServerIO extends Thread {
             }
           }
 
+          doMoves(playerMoves);
+           
+          if(!playerAttacks.isEmpty()) {
+            try {
+              if(!checkAttacks(playerAttacks)) {
+                playerMoves.clear();
+                playerAttacks.clear();
+                writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
+                //may have to change
+                continue;
+              }
+            } catch (IllegalArgumentException e) {
+               playerMoves.clear();
+               playerAttacks.clear();
+               writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
+               //may have to change
+               continue;
+            }
+          }
+
           writeObject.writeUTF("Waiting for other players to commit their moves...");
           lock.lock();
           isReady.await();
           lock.unlock();
           //do player's orders
-          doMoves(playerMoves);
           doAttacks(playerAttacks);
           break;
 
@@ -455,10 +476,11 @@ public class ServerIO extends Thread {
       lock.lock();
       isReady.await();
       lock.unlock();
-      gameMap.handleAllFires();
-      //add 1 unit to each territory
-      gameMap.increaseAllTerritoryUnits();
-      writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
+      if(id == 1) {
+        gameMap.handleAllFires();
+        gameMap.increaseAllTerritoryUnits();
+      }
+       writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
     } catch(InterruptedException e) {
       System.out.println(IE_ERROR + e + "\n");
       return;
