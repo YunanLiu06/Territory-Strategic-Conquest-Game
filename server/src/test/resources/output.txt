@@ -6,3 +6,7 @@ How many players are playing? Our current system supports 2,3, and 4.
 Building the game...
 Players can now connect to the game from their machines.
 
+IO Error: java.io.EOFException
+
+IO Error: java.net.SocketException: Broken pipe
+

@@ -452,6 +452,12 @@ public class ServerIO extends Thread {
     initializationPhase();
     placementPhase();
     turnPhase();
-    gameMap.handleAllFires();
+    try {
+      lock.lock();
+      isReady.await();
+      lock.unlock();
+    } catch(InterruptedException e) {
+      gameMap.handleAllFires();
+    }
   }
 }
