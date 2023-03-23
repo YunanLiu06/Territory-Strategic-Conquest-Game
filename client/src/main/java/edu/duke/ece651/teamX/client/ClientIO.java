@@ -54,12 +54,31 @@ public class ClientIO {
 
   public void placementPhase() {
     try {
-      // print the message for the placement phase
-      System.out.println(readObject.readUTF());
-      // placement phase
-      for (int i = 0; i < 6; i++) {
+      while(true) {
+        // print the message for the placement phase
         System.out.println(readObject.readUTF());
-        writeObject.writeUTF(scan.nextLine());
+        // placement phase
+        for (int i = 0; i < 6; i++) {
+          while(true) {
+            System.out.println(readObject.readUTF());
+            writeObject.writeUTF(scan.nextLine());
+            String check = readObject.readUTF();
+            if(check.equals("Done")) {
+              break;
+            } else {
+              System.out.println(check);
+              continue;
+            }
+          }
+        }
+
+        String check = readObject.readUTF();
+        if(check.equals("Done")) {
+          break;
+        } else {
+          System.out.println(check);
+          continue;
+        }
       }
       System.out.println(readObject.readUTF());
       // print out the placement summary

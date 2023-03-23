@@ -1,2 +1,66 @@
 
 Hello, what is the IP of the Server? e.g. vcm-30720.vm.duke.edu
+
+Welcome to the Game of Risc.
+Your Player Name: BLUE
+Here is the map of the game
+
+                         Map                         
+--------------------------------------------------
+Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial, 
+Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon
+
+
+This is a list of your territories: 
+
+ Narnia (next to: Midkemia, Roshar)
+ Midkemia (next to: Narnia, Oz, Mordor)
+ Oz (next to: Midkemia, Gondor, Hogwarts)
+ Gondor (next to: Oz, Elantris, Agrabah)
+ Elantris (next to: Gondor, Scadrial, Atlantica)
+ Scadrial (next to: Elantris, Brigadoon)
+
+
+
+You are now in the placement phase of the game. This means you will be given 30 units and you will place
+them amongst your territories. Each territory must have units (you can't place 0).
+
+How many units do you want to place in territory Narnia?
+
+How many units do you want to place in territory Midkemia?
+
+How many units do you want to place in territory Oz?
+
+How many units do you want to place in territory Gondor?
+
+How many units do you want to place in territory Elantris?
+
+How many units do you want to place in territory Scadrial?
+
+ERROR: YOU DIDN'T PLACE ALL 30 UNITS. PLACEMENT PHASE WILL BEGIN AGAIN: 
+
+
+You are now in the placement phase of the game. This means you will be given 30 units and you will place
+them amongst your territories. Each territory must have units (you can't place 0).
+
+How many units do you want to place in territory Narnia?
+
+How many units do you want to place in territory Midkemia?
+
+How many units do you want to place in territory Oz?
+
+How many units do you want to place in territory Gondor?
+
+How many units do you want to place in territory Elantris?
+
+How many units do you want to place in territory Scadrial?
+
+Your placements are as follows: 
+ Narnia: 5 units
+ Midkemia: 5 units
+ Oz: 5 units
+ Gondor: 5 units
+ Elantris: 5 units
+ Scadrial: 5 units
+
+Other players are still placing their units. Please wait...

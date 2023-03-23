@@ -97,29 +97,69 @@ public class ServerIO extends Thread {
   }
 
   /**
+     private helper function to reset the units in each territory
+     if the user has to complete the Placement Phase again
+   */
+  private void resetUnits() {
+    Iterator<Territory> it = player.getTerritories();
+    while(it.hasNext()) {
+      Territory t = it.next();
+      Iterator<Unit> it2 = t.getUnits();
+      Unit unit = it2.next();
+      t.substractUnit(unit);
+    }
+  }
+
+  /**
    * This function is for the placement phase of the game.
    * It allows the clients to place their territories
    */
   public void placementPhase() {
+    int unitNum = 30;
+    
     try {
-      // tell the user they are in the placement phase
-      String initiatePlacement = "\n\nYou are now in the placement phase of the game. This means you will be given 30 units and you will place\n"
+      while(true) {
+        // tell the user they are in the placement phase
+        String initiatePlacement = "\n\nYou are now in the placement phase of the game. This means you will be given 30 units and you will place\n"
           + "them amongst your territories. Each territory must have units (you can't place 0).";
-      writeObject.writeUTF(initiatePlacement);
+        writeObject.writeUTF(initiatePlacement);
 
-      // for each territory ask the clients to place their units
-      Iterator<Territory> it = player.getTerritories();
-      while (it.hasNext()) {
-        Territory t = it.next();
-        String prompt = "\nHow many units do you want to place in territory " + t.getName() + "?";
-        writeObject.writeUTF(prompt);
-        // need to error check
-        String temp = readObject.readUTF();
-        int units = Integer.parseInt(temp);
-        Soldier unit = new Soldier(units);
-        t.addUnit(unit);
+        // for each territory ask the clients to place their units
+        Iterator<Territory> it = player.getTerritories();
+        while (it.hasNext()) {
+          Territory t = it.next();
+          while(true) {
+            String prompt = "\nHow many units do you want to place in territory " + t.getName() + "?";
+            writeObject.writeUTF(prompt);
+          
+            String temp = readObject.readUTF();
+            int units = Integer.parseInt(temp);
+
+            //check if unit number being passed in is > 0 and < 30
+            if(units > 0 && units <= unitNum) {
+              Soldier unit = new Soldier(units);
+              t.addUnit(unit);
+              unitNum = unitNum - units;
+              writeObject.writeUTF("Done");
+              break;
+            } else {
+              writeObject.writeUTF("\nYou're trying to place either 0 units or more units than you have available");
+              continue;
+            }
+          }
+        }
+
+        if(unitNum != 0) {
+          writeObject.writeUTF("\nERROR: YOU DIDN'T PLACE ALL 30 UNITS. PLACEMENT PHASE WILL BEGIN AGAIN: ");
+          unitNum = 30;
+          resetUnits();
+          continue;
+        } else {
+          writeObject.writeUTF("Done");
+          break;
+        }
       }
-      // print out the unit information to the client
+        // print out the unit information to the client
       Iterator<Territory> it2 = player.getTerritories();
       String prompt = "\nYour placements are as follows: ";
       writeObject.writeUTF(prompt);
@@ -129,7 +169,7 @@ public class ServerIO extends Thread {
         String unitString = " " + t.getName() + ": " + size + " units";
         writeObject.writeUTF(unitString);
       }
-
+        
       // tell the players that they are waiting on other players
       writeObject.writeUTF("\nOther players are still placing their units. Please wait...");
       lock.lock();
