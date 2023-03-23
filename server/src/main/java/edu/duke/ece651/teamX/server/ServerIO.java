@@ -456,11 +456,15 @@ public class ServerIO extends Thread {
       isReady.await();
       lock.unlock();
       gameMap.handleAllFires();
+      //add 1 unit to each territory
+      gameMap.increaseAllTerritoryUnits();
       writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
     } catch(InterruptedException e) {
       System.out.println(IE_ERROR + e + "\n");
+      return;
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
+      return;
     }
   }
 }

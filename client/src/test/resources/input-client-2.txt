@@ -6,8 +6,5 @@ vcm-30720.vm.duke.edu
 5
 5
 a
-Narnia Hogwarts 4
-c
-a
-Narnia Roshar 4
+Midkemia Mordor 5
 c
