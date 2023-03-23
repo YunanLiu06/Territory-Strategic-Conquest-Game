@@ -219,7 +219,7 @@ public class Territory {
         boolean modifyIntex =  deleteDeadUnits(i, a, whoAttactsMe, whatAttactsMe);
         if (modifyIntex){
             i-=1;
-			b-=1;
+			next-=1;
         }       
 		deleteDeadUnits(next, b, whoAttactsMe, whatAttactsMe);
 
