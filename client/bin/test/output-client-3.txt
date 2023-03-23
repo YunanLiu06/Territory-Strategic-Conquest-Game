@@ -1,4 +1,6 @@
 
+Hello, what is the IP of the Server? e.g. vcm-30720.vm.duke.edu
+
 Welcome to the Game of Risc.
 Your Player Name: RED
 Here is the map of the game
@@ -7,15 +9,22 @@ Here is the map of the game
 --------------------------------------------------
 Narnia, Midkemia, Oz, Gondor, Elantris, Scadrial, 
 Roshar, Mordor, Hogwarts, Agrabah, Atlantica, Brigadoon, 
-Dillford, Grouchland, Jonathanland, Karatas, Loganville, Metropolis
+Dillford, Grouchland, Jonathanland, Karatas, Loganville, Metropolis, 
+Millbrook, Monstropolis, Pleasantville, Portoroso, Pribrezhny, Seabrook
 
 
 This is a list of your territories: 
 
- Dillford (next to: Roshar, Grouchland)
- Grouchland (next to: Mordor, Dillford, Jonathanland)
- Jonathanland (next to: Hogwarts, Grouchland, Karatas)
- Karatas (next to: Agrabah, Jonathanland, Loganville)
- Loganville (next to: Atlantica, Karatas, Metropolis)
- Metropolis (next to: Brigadoon, Loganville)
+ Dillford (next to: Roshar, Grouchland, Millbrook)
+ Grouchland (next to: Mordor, Dillford, Jonathanland, Monstropolis)
+ Jonathanland (next to: Hogwarts, Grouchland, Karatas, Pleasantville)
+ Karatas (next to: Agrabah, Jonathanland, Loganville, Portoroso)
+ Loganville (next to: Atlantica, Karatas, Metropolis, Pribrezhny)
+ Metropolis (next to: Brigadoon, Loganville, Seabrook)
 
+
+
+You are now in the placement phase of the game. This means you will be given 30 units and you will place
+them amongst your territories. Each territory must have units (you can't place 0).
+
+How many units do you want to place in territory Dillford?
