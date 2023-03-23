@@ -354,7 +354,6 @@ public class ServerIO extends Thread {
        
       player.fire(from, to, new Soldier(amount));
     }
-    gameMap.handleAllFires();
   }
 
   /**
@@ -453,5 +452,6 @@ public class ServerIO extends Thread {
     initializationPhase();
     placementPhase();
     turnPhase();
+    gameMap.handleAllFires();
   }
 }
