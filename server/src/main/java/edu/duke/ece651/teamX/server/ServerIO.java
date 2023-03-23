@@ -384,11 +384,18 @@ public class ServerIO extends Thread {
           //if anything is wrong, redo turn
           //if everything is fine, wait for other players to commit moves
           if(!playerMoves.isEmpty()) {
-            if(!checkMoves(playerMoves)) {
-              playerMoves.clear();
-              writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
-              //may have to change
-              continue;
+            try {
+              if(!checkMoves(playerMoves)) {
+                playerMoves.clear();
+                writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
+                //may have to change
+                continue;
+              }
+            } catch(IllegalArgumentException e) {
+               playerMoves.clear();
+               writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
+               //may have to change
+               continue;
             }
           }
 
