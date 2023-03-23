@@ -92,8 +92,12 @@ public class ServerIO extends Thread {
   private int getUnitNum(Territory t) {
     int count = 0;
     Iterator<Unit> it = t.getUnits();
-    Unit unit = it.next();
-    return unit.getAmount();
+    try {
+      Unit unit = it.next();
+      return unit.getAmount();
+    } catch(NoSuchElementException e) {
+      return 0;
+    }
   }
 
   /**
@@ -246,7 +250,7 @@ public class ServerIO extends Thread {
       String element = t.getName();
       Iterator<Territory> adj = gameMap.getAdjacentTerritories(t);
       int units = getUnitNum(t);
-      toAdd += " " + +units + " units in " + element + " (next to: ";
+      toAdd += " " + units + " units in " + element + " (next to: ";
       while (adj.hasNext()) {
         String adjTerritory = adj.next().getName();
         if (adj.hasNext()) {
@@ -277,9 +281,9 @@ public class ServerIO extends Thread {
   }
 
   /**
-   * function to move units for the client
+   * function to check move orders for client
    */
-  private void move(ArrayList<String> playerMoves) {
+  private Boolean checkMoves(ArrayList<String> playerMoves) {
       for(int i = 0; i < playerMoves.size(); i++) {
         RuleChecker playerMoveRuleChecker;
         // split the move order and pass into tryMove
@@ -289,12 +293,30 @@ public class ServerIO extends Thread {
         Territory from = gameMap.getTerritoryByName(split[0]);
         Territory to = gameMap.getTerritoryByName(split[1]);
         playerMoveRuleChecker = new PlayerMoveRuleChecker(from,to,amount);
-        if(playerMoveRuleChecker.checkRule() == true) {
-          player.tryMove(from, to, new Soldier(amount));
-         } else {
-           System.out.println("wrong move");
-          }
+        if(playerMoveRuleChecker.checkRule() == false) {
+          // player.tryMove(from, to, new Soldier(amount));
+          return false;
+        }
       }
+
+      return true;
+  }
+
+  /**
+     private helper function to do the moves once they're validated
+   */
+  private void doMoves(ArrayList<String> playerMoves) {
+    for(int i = 0; i < playerMoves.size(); i++) {
+        String moveOrder = playerMoves.get(i);
+        String[] split = moveOrder.split(" ");
+
+        int amount = Integer.parseInt(split[2]);
+        Territory from = gameMap.getTerritoryByName(split[0]);
+        Territory to = gameMap.getTerritoryByName(split[1]);
+       
+        player.tryMove(from, to, new Soldier(amount));
+      }
+    
   }
 
   /**
@@ -337,25 +359,49 @@ public class ServerIO extends Thread {
         if (choice.equals("m")) {
             // prompt the user
           writeObject.writeUTF("Enter the move: <territory from> <territory to> <unit amount>");
-          String moveOrder = readObject.readUTF();          
-          playerMoves.add(moveOrder);
-          //writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");          
+          String moveOrder = readObject.readUTF();
+          if(moveOrder.length() == 0) {
+            writeObject.writeUTF("\nERROR: <territory from> <territory to> <unit amount>");
+            continue;
+          } else {
+            playerMoves.add(moveOrder);
+          }
+                    
         } else if (choice.equals("a")) {
           //prompt the user
           writeObject.writeUTF("Enter the attack: <territory from> <territory to> <unit amount>");
           String attackOrder = readObject.readUTF();
-          attack(attackOrder);
+          if(attackOrder.length() == 0) {
+            writeObject.writeUTF("\nERROR: <territory from> <territory to> <unit amount>");
+            continue;
+
+          } else {
+            attack(attackOrder);
+          }
+
         } else if (choice.equals("c")) {
+          //error check moves and attacks
+          //if anything is wrong, redo turn
+          //if everything is fine, wait for other players to commit moves
+          if(!playerMoves.isEmpty()) {
+            if(!checkMoves(playerMoves)) {
+              playerMoves.clear();
+              writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
+              //may have to change
+              continue;
+            }
+          }
+
           writeObject.writeUTF("Waiting for other players to commit their moves...");
           lock.lock();
           isReady.await();
           lock.unlock();
-          if(!playerMoves.isEmpty()) {
-            move(playerMoves);
-          }
+          //do player's orders
+          doMoves(playerMoves);
           gameMap.handleAllFires();
           writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
           break;
+
         } else {
           writeObject.writeUTF("\nERROR: CHOICE IS NOT VALID");
           continue;

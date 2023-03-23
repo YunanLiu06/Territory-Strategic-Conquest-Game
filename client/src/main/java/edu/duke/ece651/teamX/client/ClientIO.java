@@ -101,6 +101,7 @@ public class ClientIO {
       // print the territories with the units to the client
       System.out.println(readObject.readUTF());
 
+      
       while(true) {
         // print the prompt and take in the user's move
         System.out.println(readObject.readUTF());
@@ -112,17 +113,33 @@ public class ClientIO {
           System.out.println(readObject.readUTF());
           String moveOrder = scan.nextLine();
           writeObject.writeUTF(moveOrder);
+
+          if(moveOrder.length() == 0) {
+            System.out.println(readObject.readUTF());
+            continue;
+          }
         }
         //if option is to commit
         else if(option.equals("c")) {
-          System.out.println(readObject.readUTF());
-          break;
+          String check = readObject.readUTF();
+          if(check.equals("Waiting for other players to commit their moves...")) {
+            System.out.println("\n\n" + check);
+            break;
+          } else {
+            System.out.println(check);
+            continue;
+          }
         }
         //if option is to attack
         else if(option.equals("a")) {
           System.out.println(readObject.readUTF());
           String attackOrder = scan.nextLine();
           writeObject.writeUTF(attackOrder);
+
+          if(attackOrder.length() == 0) {
+            System.out.println(readObject.readUTF());
+            continue;
+          }
         }
         else {
           System.out.println(readObject.readUTF());
