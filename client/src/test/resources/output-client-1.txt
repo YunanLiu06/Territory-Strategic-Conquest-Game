@@ -75,5 +75,3 @@ What order would you like to do? Enter m for move, a for attack, and c for commi
 
 
 Waiting for other players to commit their moves...
-IO Error: java.io.EOFException
-
