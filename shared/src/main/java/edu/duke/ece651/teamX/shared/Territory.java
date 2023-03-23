@@ -160,7 +160,7 @@ public class Territory {
      * @param p
      * @param u
      */
-    public void addFireSource(Player p, ArrayList<Unit> u){
+    public synchronized void addFireSource(Player p, ArrayList<Unit> u){
         if(whoAttackMe.contains(p)){
             int place = whoAttackMe.indexOf(p);
             for (Unit un:u){
