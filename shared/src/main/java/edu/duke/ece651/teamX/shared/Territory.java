@@ -160,7 +160,7 @@ public class Territory {
      * @param p
      * @param u
      */
-    public void addFireSource(Player p, ArrayList<Unit> u){
+    public synchronized void addFireSource(Player p, ArrayList<Unit> u){
         if(whoAttackMe.contains(p)){
             int place = whoAttackMe.indexOf(p);
             for (Unit un:u){
@@ -217,10 +217,12 @@ public class Territory {
             a.substractAmount(1);
         }
         boolean modifyIntex =  deleteDeadUnits(i, a, whoAttactsMe, whatAttactsMe);
-        deleteDeadUnits(next, b, whoAttactsMe, whatAttactsMe);
         if (modifyIntex){
             i-=1;
-        }
+			next-=1;
+        }       
+		deleteDeadUnits(next, b, whoAttactsMe, whatAttactsMe);
+
 
         return i;
     }
@@ -242,6 +244,7 @@ public class Territory {
             this.owner.loseTerritory(this);
             this.owner = whoAttackMe.get(0);
             whoAttackMe.get(0).addTerritory(this);
+			this.unitList = whatAttackMe.get(0);
         }
 
         whoAttackMe.clear();
