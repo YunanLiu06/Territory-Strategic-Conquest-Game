@@ -15,8 +15,11 @@ public class RiscServerTest {
     FakeClient client1 = new FakeClient("vcm-30720.vm.duke.edu", 5000);
     FakeClient client2 = new FakeClient("vcm-30720.vm.duke.edu", 5000);
 
+    /* server.run();
     client1.connectToServer();
     client2.connectToServer();
+    client1.run();
+    client2.run();*/
   }
 
 }

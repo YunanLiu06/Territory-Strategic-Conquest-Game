@@ -105,9 +105,52 @@ public class ClientIO {
       } catch (IOException e) {
         System.out.println(IO_ERROR + e + "\n");
       }
-      if(check.equals("Loss")) {
+      if(check.equals("Break")) {
         break;
       }
+    }
+    try {
+      //what happens next depends on the client
+      String client_id = readObject.readUTF();
+
+      //if client_id == 10: this client should be able to watch the game or
+      //disconnect
+      if(client_id.equals("10")) {
+        System.out.println(readObject.readUTF());
+        String answer;
+        while(true) {
+          answer = scan.nextLine();
+          if(answer.length() == 0 || answer.length() > 1 || !answer.equals("y") || !answer.equals("n")) {
+            System.out.println("Invalid Choice: try again:\n");
+            continue;
+          } else {
+            break;
+          }
+        }
+        writeObject.writeUTF(answer);
+        if(answer.equals("y")) {
+          while(true) {
+            System.out.println(readObject.readUTF());
+            String check2 = readObject.readUTF();
+            if(check.equals("break")) {
+              break;
+            }
+          }
+        } else {
+          System.out.println(readObject.readUTF());
+          return;
+        }
+        System.out.println(readObject.readUTF());
+      }
+
+      //if client_id == 01: this client has won the game, recieve and print out
+      //ending messages
+      if(client_id.equals("01")) {
+        System.out.println(readObject.readUTF());
+      }
+    } catch(IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
+      return;
     }
     scan.close();
   }

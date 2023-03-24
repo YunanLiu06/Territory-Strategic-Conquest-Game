@@ -306,6 +306,9 @@ public class ServerIO extends Thread {
       return true;
   }
 
+  /**
+     funciton to check the validity of the attacks the player made
+   */
   public Boolean checkAttacks(ArrayList<String> playerAttacks) {
     for(int i = 0; i < playerAttacks.size(); i++) {
         RuleChecker playerAttackRuleChecker;
@@ -488,12 +491,15 @@ public class ServerIO extends Thread {
     }
   }
 
+  /**
+     Function to run the clientIO code
+   */
   @Override
   public void run() {
-   
    initializationPhase();
    placementPhase();
-   while(!player.isLose()) {
+   //if the player 
+   while(!player.isLose() && !gameMap.isGameEnd()) {
       turnPhase();
       try {
         lock.lock();
@@ -507,7 +513,11 @@ public class ServerIO extends Thread {
         isReady.await();
         lock.unlock();
         writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
-        writeObject.writeUTF("NoLoss");
+        if(!player.isLose() && !gameMap.isGameEnd()) {
+          writeObject.writeUTF("NoLoss");
+        } else {
+          writeObject.writeUTF("Break");
+        }
       } catch(InterruptedException e) {
         System.out.println(IE_ERROR + e + "\n");
         return;
@@ -515,13 +525,62 @@ public class ServerIO extends Thread {
         System.out.println(IO_ERROR + e + "\n");
         return;
       }
-    }
-
+   }
    try{
-     writeObject.writeUTF("Loss");
+ 
+     //if the player has lost, but the game hasn't been won
+     //prompt the player to either keep watching or disconnect
+     if(player.isLose() && !gameMap.isGameEnd()) {
+       writeObject.writeUTF("10");
+       writeObject.writeUTF("\nWould you like to continue watching? Enter y for yes and n for no.\n");
+       String answer = readObject.readUTF();
+       if(answer.equals("y")) {
+         sendPlayerBoards();
+         //end game
+         endGame();
+       }
+       else {
+         writeObject.writeUTF("\nHit C-c\n");
+       }
+     }
+     else {
+       //this player has won the game
+       //send win information to all clients and
+       //tell them to exit
+       writeObject.writeUTF("01");
+       endGame();
+     }
    } catch(IOException e) {
      System.out.println(IO_ERROR + e + "\n");
+     return;
    }
    
+  }
+
+  public void endGame() {
+    try {
+      String endMessage = "A player has won!\n";
+      String endMessage2 = "You may exit successfully now by hitting C-c\n";
+      String endMessage3 = "Bye! Make sure to come back and playe again =)\n";
+      writeObject.writeUTF(endMessage + endMessage2 + endMessage3);
+    } catch(IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
+      return;
+    }
+  }
+
+  public void sendPlayerBoards() {
+    try {
+      while(!gameMap.isGameEnd()) {
+        // gameMap.printAllTerritoriesandUnits();
+        if(!gameMap.isGameEnd()) {
+          writeObject.writeUTF("ok");
+        } else {
+          writeObject.writeUTF("break");
+        }
+      }
+    } catch(IOException e) {
+      System.out.println(IO_ERROR + e + "\n");
+    }
   }
 }
