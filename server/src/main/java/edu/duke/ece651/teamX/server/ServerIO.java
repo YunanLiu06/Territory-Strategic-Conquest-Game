@@ -372,9 +372,6 @@ public class ServerIO extends Thread {
       //may want to clear the array list
 
       while(true) {
-        //clear the arrays
-        playerMoves.clear();
-        playerAttacks.clear();
         //prompt the user for what action they want to commit 
         writeObject.writeUTF("\nWhat order would you like to do? Enter m for move, a for attack, and c for commit");
         String choice = readObject.readUTF();
@@ -425,11 +422,17 @@ public class ServerIO extends Thread {
                playerAttacks.clear();
                writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
                continue;
+            } catch (IndexOutOfBoundsException e) {
+               playerMoves.clear();
+               playerAttacks.clear();
+               writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
+               continue;
             }
           }
 
+         
           doMoves(playerMoves);
-           
+                     
           if(!playerAttacks.isEmpty()) {
             try {
               if(!checkAttacks(playerAttacks)) {
@@ -445,6 +448,12 @@ public class ServerIO extends Thread {
                writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
                player.retrace();
                continue;
+            } catch (IndexOutOfBoundsException e) {
+               playerMoves.clear();
+               playerAttacks.clear();
+               writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
+               player.retrace();
+               continue;
             }
           }
 
@@ -453,8 +462,18 @@ public class ServerIO extends Thread {
           isReady.await();
           lock.unlock();
           //do player's orders
-          doAttacks(playerAttacks);
+          try {
+            doAttacks(playerAttacks);
+          } catch(ArrayIndexOutOfBoundsException e) {
+             playerMoves.clear();
+             playerAttacks.clear();
+             writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
+             player.retrace();
+             continue;
+          }
           player.clearLog();
+          playerMoves.clear();
+          playerAttacks.clear();
           break;
 
         } else {
