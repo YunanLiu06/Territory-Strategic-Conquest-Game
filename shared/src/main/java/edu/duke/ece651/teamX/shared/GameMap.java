@@ -232,4 +232,21 @@ public class GameMap {
       territory.addUnit(new Soldier(1));
     }
   }
+
+  /**
+   * Check if the game is end
+   * @rule if all territories belong to one player, game end
+   * @return true/false
+   */
+  public boolean isGameEnd(){
+    Player owner = null;
+    for(Territory territory: territories.keySet()){
+      if(owner == null){
+        owner = territory.getOwner();
+      }else if(territory.getOwner() != owner){
+        return false;
+      }
+    }
+    return true;
+  }
 }

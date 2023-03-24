@@ -247,5 +247,34 @@ public class GameMapTest {
     uIterator = b.getUnits();
     assertEquals(2, uIterator.next().amount);
   }
+
+  @Test
+  public void test_is_game_end(){
+    int[][] adjacentInfo = {{0,1}, {0,4}, {1,3}, {1,5}, {3,2}, {4,5}, {5,2}};
+    LinkedList<String> territoryNames = new LinkedList<>();
+    territoryNames.add("A");
+    territoryNames.add("B");
+    territoryNames.add("C");
+    territoryNames.add("D");
+    territoryNames.add("E");
+    territoryNames.add("F");
+    GameMap gameMap = new GameMap(2, territoryNames, adjacentInfo);
+    Player p1 = new TextPlayer("A");
+    Player p2 = new TextPlayer("B");
+    gameMap.assignToPlayer(p1);
+    gameMap.assignToPlayer(p2);
+    
+    assertFalse(gameMap.isGameEnd());
+    
+    Territory a = gameMap.getTerritoryByName("A");
+    Territory b = gameMap.getTerritoryByName("B");
+    Territory c = gameMap.getTerritoryByName("C");
+
+    a.changeOwner(p2);
+    b.changeOwner(p2);
+    c.changeOwner(p2);
+
+    assertTrue(gameMap.isGameEnd());
+  }
 }
 
