@@ -91,6 +91,25 @@ public class ClientIO {
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
     }
+
+    playRestofGame();
+  }
+
+  public void playRestofGame() {
+    String check = "";
+    while(true) {
+      turnPhase();
+      printUpdate();
+      try {
+        check = readObject.readUTF();
+      } catch (IOException e) {
+        System.out.println(IO_ERROR + e + "\n");
+      }
+      if(check.equals("Loss")) {
+        break;
+      }
+    }
+    scan.close();
   }
 
   public void turnPhase() {
@@ -146,7 +165,6 @@ public class ClientIO {
           continue;
         }
       }
-      scan.close();
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
     }

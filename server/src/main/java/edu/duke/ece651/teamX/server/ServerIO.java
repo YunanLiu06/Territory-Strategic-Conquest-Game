@@ -372,6 +372,9 @@ public class ServerIO extends Thread {
       //may want to clear the array list
 
       while(true) {
+        //clear the arrays
+        playerMoves.clear();
+        attackMoves.clear();
         //prompt the user for what action they want to commit 
         writeObject.writeUTF("\nWhat order would you like to do? Enter m for move, a for attack, and c for commit");
         String choice = readObject.readUTF();
@@ -471,7 +474,7 @@ public class ServerIO extends Thread {
    
    initializationPhase();
    placementPhase();
-   // while(!player.isLose()) {
+   while(!player.isLose()) {
       turnPhase();
       try {
         lock.lock();
@@ -485,6 +488,7 @@ public class ServerIO extends Thread {
         isReady.await();
         lock.unlock();
         writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
+        writeObject.writeUTF("NoLoss");
       } catch(InterruptedException e) {
         System.out.println(IE_ERROR + e + "\n");
         return;
@@ -492,6 +496,13 @@ public class ServerIO extends Thread {
         System.out.println(IO_ERROR + e + "\n");
         return;
       }
-      // }
+    }
+
+   try{
+     writeObject.writeUTF("Loss");
+   } catch(IOException e) {
+     System.out.println(IO_ERROR + e + "\n");
+   }
+   
   }
 }
