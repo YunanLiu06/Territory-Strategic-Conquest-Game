@@ -84,7 +84,7 @@ public class ServerIO extends Thread {
   /**
    * Private helper function to return a string of the text map
    */
-  private String printTextMap() {
+  public String printTextMap() {
     MapView<String> mapView = new TextMapView();
     String view = mapView.printMap(gameMap);
     return view;
@@ -93,7 +93,7 @@ public class ServerIO extends Thread {
   /**
    * private helper function to get the number of units in a territory
    */
-  private int getUnitNum(Territory t) {
+  public int getUnitNum(Territory t) {
     int count = 0;
     Iterator<Unit> it = t.getUnits();
     try {
@@ -108,7 +108,7 @@ public class ServerIO extends Thread {
      private helper function to reset the units in each territory
      if the user has to complete the Placement Phase again
    */
-  private void resetUnits() {
+  public void resetUnits() {
     Iterator<Territory> it = player.getTerritories();
     while(it.hasNext()) {
       Territory t = it.next();
@@ -218,7 +218,7 @@ public class ServerIO extends Thread {
     }
   }
 
-  private String printTerritories() {
+  public String printTerritories() {
     String territory = "\nThis is a list of your territories: \n";
     String toAdd = "\n";
     Iterator<Territory> it = player.getTerritories();
@@ -245,7 +245,7 @@ public class ServerIO extends Thread {
    * This function is to print the users territories along with the units in each
    * one
    */
-  private String printTerritoriesAndUnits() {
+  public String printTerritoriesAndUnits() {
     String territory = "\nThis is a list of your territories: \n";
     String toAdd = "\n";
     Iterator<Territory> it = player.getTerritories();
@@ -272,7 +272,7 @@ public class ServerIO extends Thread {
   /**
    * private helper function to get the territory based on the name
    */
-  private Territory getTerritory(String name) {
+  public Territory getTerritory(String name) {
     Iterator<Territory> it = player.getTerritories();
     while (it.hasNext()) {
       Territory t = it.next();
@@ -287,7 +287,7 @@ public class ServerIO extends Thread {
   /**
    * function to check move orders for client
    */
-  private Boolean checkMoves(ArrayList<String> playerMoves) {
+  public Boolean checkMoves(ArrayList<String> playerMoves) {
       for(int i = 0; i < playerMoves.size(); i++) {
         RuleChecker playerMoveRuleChecker;
         // split the move order and pass into tryMove
@@ -306,7 +306,7 @@ public class ServerIO extends Thread {
       return true;
   }
 
-  private Boolean checkAttacks(ArrayList<String> playerAttacks) {
+  public Boolean checkAttacks(ArrayList<String> playerAttacks) {
     for(int i = 0; i < playerAttacks.size(); i++) {
         RuleChecker playerAttackRuleChecker;
         // split the move order and pass into tryMove
@@ -327,7 +327,7 @@ public class ServerIO extends Thread {
   /**
      private helper function to do the moves once they're validated
    */
-  private void doMoves(ArrayList<String> playerMoves) {
+  public void doMoves(ArrayList<String> playerMoves) {
     for(int i = 0; i < playerMoves.size(); i++) {
         String moveOrder = playerMoves.get(i);
         String[] split = moveOrder.split(" ");
@@ -344,7 +344,7 @@ public class ServerIO extends Thread {
   /**
    * function to attack for the client
    */
-  private void doAttacks(ArrayList<String> playerAttacks) {
+  public void doAttacks(ArrayList<String> playerAttacks) {
     for(int i = 0; i < playerAttacks.size(); i++) {
 
       String attackOrder = playerAttacks.get(i);
