@@ -59,17 +59,24 @@ public class RiscServer {
     }
   }
 
+  /* public void closeAllClients() {
+    for(int i = 0; i < threads.size(); i++) {
+      threads[i].close();
+    }
+    }*/
+
   /*
    * This method is the main loop of the RiscServer. It accepts request, and plays
    * the game.
    */
   public void run() throws IOException {
     int num = 1;
+    Socket client_socket = null;
     while (num <= numPlayers) {
       
       try {
         // create a socket for the client
-        final Socket client_socket = acceptOrNull();
+        client_socket = acceptOrNull();
         String name = playerNames.get(num - 1);
         // create an instance of ServerIO, which handles the IO for the server
         ServerIO serverIO = new ServerIO(client_socket, client_socket.getInputStream(),
@@ -80,6 +87,7 @@ public class RiscServer {
         num++;
       } catch (IOException e) {
         System.out.println("Server Networking Error: " + e);
+        client_socket.close();
       }
     }
     try {
@@ -108,6 +116,13 @@ public class RiscServer {
       lock.lock();
       isReady.signalAll();
       lock.unlock();
+      Boolean endGame = true;
+      for(ServerIO t: threads) {
+        endGame &= !t.getConnected();
+      }
+      if(endGame) {
+        break;
+      }
     }
   }
 
@@ -118,8 +133,8 @@ public class RiscServer {
    * @returns false if there aren't any threads waiting
    */
   public Boolean isWaiting() {
-    for (ServerIO s : threads) {
-      if (s.getState() != State.WAITING && s.getIsConnected() == true) {
+    for(ServerIO s: threads) {
+      if (s.getState() != State.WAITING && s.getConnected() == true) {
         return false;
       }
     }

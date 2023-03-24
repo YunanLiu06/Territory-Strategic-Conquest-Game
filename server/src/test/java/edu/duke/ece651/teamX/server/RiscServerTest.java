@@ -12,14 +12,17 @@ public class RiscServerTest {
   @Test
   public void test_RiscServer() throws IOException, InterruptedException {
     RiscServer server = new RiscServer(2, new ServerSocket(5000));
-    FakeClient client1 = new FakeClient("vcm-30720.vm.duke.edu", 5000);
-    FakeClient client2 = new FakeClient("vcm-30720.vm.duke.edu", 5000);
+    // server.run();
+    Thread client1 = new Thread(new FakeClient("127.0.0.1", 5000));
+    Thread client2 = new Thread(new FakeClient2("127.0.0.1", 5000));
+    
+    client1.start();
+    client2.start();
+    server.run();
+    //Thread.sleep(50);
 
-    /* server.run();
-    client1.connectToServer();
-    client2.connectToServer();
-    client1.run();
-    client2.run();*/
+    client1.join();
+    client2.join();
   }
 
 }

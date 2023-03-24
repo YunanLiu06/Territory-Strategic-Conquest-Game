@@ -26,12 +26,14 @@ public class ServerIO extends Thread {
   private DataInputStream readObject;
   private String name;
   private GameMap gameMap;
+  private MapView<String> mapView = new TextMapView();
   private Player player;
   private Lock lock;
   private Condition isReady;
   private Boolean isConnected;
   private ArrayList<String> playerMoves;
   private ArrayList<String> playerAttacks;
+  private Boolean connect;
   private int id;
 
   // string to state that there was an IOException in ther server
@@ -72,6 +74,8 @@ public class ServerIO extends Thread {
     playerMoves = new ArrayList<String>();
     playerAttacks = new ArrayList<String>();
     this.id = id;
+    mapView = new TextMapView();
+    connect = true;
   }
 
   /**
@@ -81,11 +85,14 @@ public class ServerIO extends Thread {
     return isConnected;
   }
 
+  public Boolean getConnected() {
+    return connect;
+  }
+
   /**
    * Private helper function to return a string of the text map
    */
   public String printTextMap() {
-    MapView<String> mapView = new TextMapView();
     String view = mapView.printMap(gameMap);
     return view;
   }
@@ -193,8 +200,10 @@ public class ServerIO extends Thread {
       writeObject.writeUTF("\nDone with placement phase. The game will now begin!");
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
+      connect = false;
     } catch (InterruptedException e) {
       System.out.println(IE_ERROR + e + "\n");
+      connect = false;
     }
   }
 
@@ -215,6 +224,7 @@ public class ServerIO extends Thread {
 
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
+      connect = false;
     }
   }
 
@@ -486,8 +496,10 @@ public class ServerIO extends Thread {
       }
     } catch (IOException e) {
       System.out.println(IO_ERROR + e + "\n");
+      connect = false;
     } catch (InterruptedException e) {
       System.out.println(IE_ERROR + e + "\n");
+      connect = false;
     }
   }
 
@@ -498,6 +510,7 @@ public class ServerIO extends Thread {
   public void run() {
    initializationPhase();
    placementPhase();
+   int flag = 1;
    //if the player 
    while(!player.isLose() && !gameMap.isGameEnd()) {
       turnPhase();
@@ -505,6 +518,9 @@ public class ServerIO extends Thread {
         lock.lock();
         isReady.await();
         lock.unlock();
+        if(flag == 0) {
+          id--;
+        }
         if(id == 1) {
           gameMap.handleAllFires();
           gameMap.increaseAllTerritoryUnits();
@@ -514,20 +530,29 @@ public class ServerIO extends Thread {
         lock.unlock();
         writeObject.writeUTF("\n" + printTerritoriesAndUnits() + "\n");
         if(!player.isLose() && !gameMap.isGameEnd()) {
+          flag = 1;
           writeObject.writeUTF("NoLoss");
         } else {
+          if(id == 1) {
+            flag = 0;
+          }
           writeObject.writeUTF("Break");
         }
       } catch(InterruptedException e) {
         System.out.println(IE_ERROR + e + "\n");
+        connect = false;
         return;
       } catch (IOException e) {
         System.out.println(IO_ERROR + e + "\n");
+        connect = false;
         return;
+      } finally {
+        close();
+        connect = false;
       }
    }
+
    try{
- 
      //if the player has lost, but the game hasn't been won
      //prompt the player to either keep watching or disconnect
      if(player.isLose() && !gameMap.isGameEnd()) {
@@ -538,9 +563,11 @@ public class ServerIO extends Thread {
          sendPlayerBoards();
          //end game
          endGame();
+         connect = false;
        }
        else {
          writeObject.writeUTF("\nHit C-c\n");
+         connect = false;
        }
      }
      else {
@@ -549,10 +576,15 @@ public class ServerIO extends Thread {
        //tell them to exit
        writeObject.writeUTF("01");
        endGame();
+       connect = false;
      }
    } catch(IOException e) {
      System.out.println(IO_ERROR + e + "\n");
+     connect = false;
      return;
+   } finally {
+     close();
+     connect = false;
    }
    
   }
@@ -565,6 +597,7 @@ public class ServerIO extends Thread {
       writeObject.writeUTF(endMessage + endMessage2 + endMessage3);
     } catch(IOException e) {
       System.out.println(IO_ERROR + e + "\n");
+      connect = false;
       return;
     }
   }
@@ -572,7 +605,7 @@ public class ServerIO extends Thread {
   public void sendPlayerBoards() {
     try {
       while(!gameMap.isGameEnd()) {
-        // gameMap.printAllTerritoriesandUnits();
+        mapView.printTerritories(gameMap);
         if(!gameMap.isGameEnd()) {
           writeObject.writeUTF("ok");
         } else {
@@ -581,6 +614,17 @@ public class ServerIO extends Thread {
       }
     } catch(IOException e) {
       System.out.println(IO_ERROR + e + "\n");
+      connect = false;
+    }
+  }
+
+  public void close() {
+    try {
+      readObject.close();
+      writeObject.close();
+    } catch (IOException e) {
+      connect = false;
+      return;
     }
   }
 }

@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import edu.duke.ece651.teamX.shared.*;
 
-public class FakeClient extends Thread{
+public class FakeClient2 extends Thread{
   String ip;
   int port;
   Socket client_socket;
@@ -16,7 +16,7 @@ public class FakeClient extends Thread{
   String IO_ERROR = "IO_ERROR :";
   String IE_ERROR = "IE_ERROR :";
 
-  public FakeClient(String ip, int port) {
+  public FakeClient2(String ip, int port) {
     this.ip = ip;
     this.port = port;
     //   this.in = in;
@@ -35,9 +35,16 @@ public class FakeClient extends Thread{
     
     
   public void run() {
+    //    try {
     connectToServer();
-    initalizationPhase();
-    placementPhase();
+    //    initalizationPhase();
+    // placementPhase();
+    // System.out.println(readObject.readUTF());
+    // System.out.println("Finish placement phase");
+    // return;
+    // } catch(IOException e) {
+    // System.out.println(e);
+    // }
   }
 
   /**
@@ -103,6 +110,23 @@ public class FakeClient extends Thread{
 
     // playRestofGame();
   }
+
+   public void turn() {
+     try {
+       //print the game map
+       readObject.readUTF();
+       readObject.readUTF();
+       readObject.readUTF();
+       writeObject.writeUTF("m");
+       writeObject.writeUTF("Roshar Mordor 5");
+       writeObject.writeUTF("a");
+       writeObject.writeUTF("Mordor Midkemia 5");
+       writeObject.writeUTF("c");
+     } catch (IOException e) {
+       System.out.println(e);
+     }
+  }
+
 
   /* public void playRestofGame() {
     String check = "";
