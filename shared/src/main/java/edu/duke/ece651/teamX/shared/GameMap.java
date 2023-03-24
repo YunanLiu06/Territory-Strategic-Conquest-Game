@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -248,5 +249,17 @@ public class GameMap {
       }
     }
     return true;
+  }
+
+  /**
+   * Collect all the players does not lose currently
+   * @return
+   */
+  public LinkedHashSet<Player> collectPlayers(){
+    LinkedHashSet<Player> players = new LinkedHashSet<>();
+    for(Territory territory: territories.keySet()){
+      players.add(territory.getOwner());
+    }
+    return players;
   }
 }
