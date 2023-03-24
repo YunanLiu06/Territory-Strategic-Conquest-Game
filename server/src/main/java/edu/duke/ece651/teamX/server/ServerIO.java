@@ -374,7 +374,7 @@ public class ServerIO extends Thread {
       while(true) {
         //clear the arrays
         playerMoves.clear();
-        attackMoves.clear();
+        playerAttacks.clear();
         //prompt the user for what action they want to commit 
         writeObject.writeUTF("\nWhat order would you like to do? Enter m for move, a for attack, and c for commit");
         String choice = readObject.readUTF();
