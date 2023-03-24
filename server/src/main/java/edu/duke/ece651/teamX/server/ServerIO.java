@@ -415,14 +415,12 @@ public class ServerIO extends Thread {
                 playerMoves.clear();
                 playerAttacks.clear();
                 writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
-                //may have to change
                 continue;
               }
             } catch(IllegalArgumentException e) {
                playerMoves.clear();
                playerAttacks.clear();
                writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
-               //may have to change
                continue;
             }
           }
@@ -435,14 +433,14 @@ public class ServerIO extends Thread {
                 playerMoves.clear();
                 playerAttacks.clear();
                 writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
-                //may have to change
+                player.retrace();
                 continue;
               }
             } catch (IllegalArgumentException e) {
                playerMoves.clear();
                playerAttacks.clear();
                writeObject.writeUTF("\nERROR: YOU ENTERED INVALID ORDERS. RE-ENTER ALL ORDERS.");
-               //may have to change
+               player.retrace();
                continue;
             }
           }
@@ -453,6 +451,7 @@ public class ServerIO extends Thread {
           lock.unlock();
           //do player's orders
           doAttacks(playerAttacks);
+          player.clearLog();
           break;
 
         } else {
@@ -469,9 +468,10 @@ public class ServerIO extends Thread {
 
   @Override
   public void run() {
-    // while(!player.isLose) {
-      initializationPhase();
-      placementPhase();
+   
+   initializationPhase();
+   placementPhase();
+   // while(!player.isLose()) {
       turnPhase();
       try {
         lock.lock();

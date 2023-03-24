@@ -30,7 +30,7 @@ public class RiscClient {
   public void run() {
     try {
       ClientIO clientIO = new ClientIO(client_socket.getInputStream(), client_socket.getOutputStream());
-
+      
       clientIO.initalizationPhase();
       clientIO.placementPhase();
       clientIO.turnPhase();

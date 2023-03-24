@@ -6,5 +6,7 @@ vcm-30720.vm.duke.edu
 5
 5
 m
-Mordor Hogwarts 4
+Narnia Midkemia 4
+m
+Oz Gondor 5
 c
