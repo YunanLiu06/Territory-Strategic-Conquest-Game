@@ -1,5 +1,6 @@
 package edu.duke.ece651.teamX.shared;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -17,6 +18,22 @@ public class TextMapView implements MapView<String>{
         String title = getMapTitle(body.split("\n")[0].length());
         
         return title + "\n" + body + "\n";
+    }
+
+    /**
+     * Print territories with units in text view
+     * @param gameMap map to be printed
+     * @return string territories
+     */
+    @Override
+    public String printTerritories(GameMap gameMap){
+        HashSet<Player> players = gameMap.collectPlayers();//players still owning territories
+        String stringTerritories = new String();
+        for(Player player: players){
+            stringTerritories += getPlayerTerritories(player) + "\n";
+            stringTerritories += "\n";
+        }
+        return stringTerritories;
     }
 
     /**
@@ -60,5 +77,55 @@ public class TextMapView implements MapView<String>{
         mapNames = mapNames.substring(0, mapNames.length() - 2);//remove last ", "
         return mapNames;
     }
-    
+
+    /**
+     * Get the territories owned by the player in the form of string
+     * @param player
+     * @return territories in the form of string
+     */
+    private String getPlayerTerritories(Player player) {
+        String territoryStr = "This is a list of " + player.getName() + " territories:\n";
+        territoryStr += "\n";
+        Iterator<Territory> territoryIter = player.getTerritories();
+        while(territoryIter.hasNext()){
+            Territory territory = territoryIter.next();
+            int unitsNum = countUnits(territory);
+            String adjTerrStr = getAdjTerritories(territory);
+
+            String oneTerritoryStr = " " + unitsNum + " units in " + territory.getName() + " (next to: " + adjTerrStr + ")";
+            territoryStr += oneTerritoryStr + "\n";
+        }
+        return territoryStr;
+    }
+
+    /**
+     * Get the number of units in territory
+     * @param territory
+     * @return number of units
+     */
+    private int countUnits(Territory territory){
+        int count = 0;
+        Iterator<Unit> unitIter = territory.getUnits();
+        while(unitIter.hasNext()){
+            count += unitIter.next().getAmount();
+        }
+        return count;
+    }
+
+    /**
+     * Get the adjacent territories in string format
+     * @param territory
+     * @return string format of adjacent territories
+     */
+    private String getAdjTerritories(Territory territory){
+        String adjStr = new String();
+        Iterator<Territory> adjIter = territory.getAdjacentTerritories();
+        while(adjIter.hasNext()){
+            adjStr += adjIter.next().getName();
+            if(adjIter.hasNext()){
+                adjStr += ", ";
+            }
+        }
+        return adjStr;
+    }
 }
