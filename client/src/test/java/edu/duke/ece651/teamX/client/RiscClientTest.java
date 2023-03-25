@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class RiscClientTest throws IOException {
   @Test
   public void test_() {
-    Thread
+    //Thread
   }
 
 }
