@@ -11,7 +11,7 @@ import edu.duke.ece651.teamX.shared.*;
  */
 public class RiscClient {
 
-  Socket client_socket;
+  public Socket client_socket;
 
   /**
    * Constructor: initalizes the client socket

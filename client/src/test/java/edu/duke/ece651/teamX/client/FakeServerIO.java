@@ -514,7 +514,7 @@ public class FakeServerIO extends Thread {
   public void run() {
    initializationPhase();
    placementPhase();
-   int flag = 1;
+   /*  int flag = 1;
    //if the player 
    while(!player.isLose() && !gameMap.isGameEnd()) {
       turnPhase();
@@ -589,7 +589,7 @@ public class FakeServerIO extends Thread {
    } finally {
      close();
      connect = false;
-   }
+     } */
    
   }
 

@@ -22,7 +22,7 @@ import static java.lang.Thread.sleep;
  *                       connections from clients
  * @param numPlayers:    the number of players in the game
  */
-public class FakeServer {
+public class FakeServer extends Thread{
 
   ServerSocket server_socket;
   Integer numPlayers;
@@ -73,7 +73,7 @@ public class FakeServer {
    * This method is the main loop of the RiscServer. It accepts request, and plays
    * the game.
    */
-  public void run() throws IOException {
+  public void run() {
     int num = 1;
     Socket client_socket = null;
     while (num <= numPlayers) {
@@ -91,7 +91,7 @@ public class FakeServer {
         num++;
       } catch (IOException e) {
         System.out.println("Server Networking Error: " + e);
-        client_socket.close();
+        // client_socket.close();
       }
     }
     try {
