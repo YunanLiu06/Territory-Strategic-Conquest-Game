@@ -1,4 +1,8 @@
-package edu.duke.ece651.teamX.server;
+package edu.duke.ece651.teamX.client;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 import edu.duke.ece651.teamX.shared.*;
 import java.net.*;
@@ -18,7 +22,7 @@ import com.google.common.collect.Iterators;
  * @param name:   the name of the player
  * @param map:    the map of the game
  */
-public class ServerIO extends Thread {
+public class FakeServerIO extends Thread {
   private Socket socket;
   private InputStream in;
   private OutputStream out;
@@ -55,7 +59,7 @@ public class ServerIO extends Thread {
    * @param lock:    a lock to lock the critical sections of the code
    * @param isReady
    */
-  public ServerIO(Socket socket, InputStream in, OutputStream out, String name, GameMap gameMap, Lock lock,
+  public FakeServerIO(Socket socket, InputStream in, OutputStream out, String name, GameMap gameMap, Lock lock,
                   Condition isReady, int id) {
     // initialize IO
     this.socket = socket;
@@ -78,6 +82,12 @@ public class ServerIO extends Thread {
     connect = true;
   }
 
+  /**
+   * return if the client is connected
+   */
+  public Boolean getIsConnected() {
+    return isConnected;
+  }
 
   public Boolean getConnected() {
     return connect;

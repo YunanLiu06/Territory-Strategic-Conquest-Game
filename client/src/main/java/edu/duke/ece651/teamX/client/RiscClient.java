@@ -32,8 +32,7 @@ public class RiscClient {
       ClientIO clientIO = new ClientIO(client_socket.getInputStream(), client_socket.getOutputStream());
       
       clientIO.initalizationPhase();
-      clientIO.placementPhase();
-      
+      clientIO.placementPhase();   
       //clientIO.turnPhase();
       // clientIO.printUpdate();
       client_socket.close();

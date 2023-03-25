@@ -29,8 +29,33 @@ public class ServerIOTest {
   }
   
   @Test
-  public void test_server() {
+  public void test_checkMoves() {
     ServerIO s = getTestServerIO();
+    ArrayList<String> moves = new ArrayList<String>();
+    String m1 = "Roshar Mordor 5";
+    moves.add(m1);
+    assertFalse(s.checkMoves(moves));
+  }
+
+  @Test
+  public void test_checkAttacks() {
+    ServerIO s = getTestServerIO();
+    ArrayList<String> attacks = new ArrayList<String>();
+    String a1 = "Roshar Mordor 5";
+    attacks.add(a1);
+    assertFalse(s.checkAttacks(attacks));
+  }
+
+  @Test
+  public void test_getTerritory() {
+    ServerIO s = getTestServerIO();
+    assertNull(s.getTerritory("Roshar"));
+  }
+
+  @Test
+  public void test_getConnected() {
+    ServerIO s = getTestServerIO();
+    assertTrue(s.getConnected());
   }
 
 }

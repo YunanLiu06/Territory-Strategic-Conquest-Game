@@ -13,7 +13,7 @@ public class RiscServerTest {
   public void test_RiscServer() throws IOException, InterruptedException {
     RiscServer server = new RiscServer(2, new ServerSocket(5000));
     // server.run();
-    //    Thread client1 = new Thread(new FakeClient("127.0.0.1", 5000));
+    // Thread client1 = new Thread(new FakeClient("127.0.0.1", 5000));
     // Thread client2 = new Thread(new FakeClient2("127.0.0.1", 5000));
     
     // client1.start();
