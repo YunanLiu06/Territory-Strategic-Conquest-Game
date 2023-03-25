@@ -61,6 +61,19 @@ public class ServerIOTest {
   }
 
   @Test
+  public void test_printStringMap() {
+    ServerIO s = getTestServerIO();
+    assertEquals(s.printTextMap(), s.printTextMap());
+  }
+
+  @Test
+  public void test_getUnitNum() {
+    ServerIO s = getTestServerIO();
+    Territory Roshar = new Territory("Roshar");
+    assertEquals(0, s.getUnitNum(Roshar));
+  }
+
+  @Test
   public void test_printTerritories() {
     ServerIO s = getTestServerIO();
     //assertThrows(NullPointerException.class, () -> {s.printTerritories();});
