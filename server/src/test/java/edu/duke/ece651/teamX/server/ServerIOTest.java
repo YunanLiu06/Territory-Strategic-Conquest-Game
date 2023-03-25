@@ -34,6 +34,7 @@ public class ServerIOTest {
     ArrayList<String> moves = new ArrayList<String>();
     String m1 = "Roshar Mordor 5";
     moves.add(m1);
+    // assertEquals(null, s.doMoves(moves));
     assertFalse(s.checkMoves(moves));
   }
 
@@ -43,6 +44,7 @@ public class ServerIOTest {
     ArrayList<String> attacks = new ArrayList<String>();
     String a1 = "Roshar Mordor 5";
     attacks.add(a1);
+    assertThrows(IllegalArgumentException.class, () -> {s.doAttacks(attacks);});
     assertFalse(s.checkAttacks(attacks));
   }
 
