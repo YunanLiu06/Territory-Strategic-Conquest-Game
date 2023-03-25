@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-public class RiscClientTest throws IOException {
+public class RiscClientTest {
   @Test
   public void test_() {
     //Thread
