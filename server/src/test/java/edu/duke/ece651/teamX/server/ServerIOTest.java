@@ -58,4 +58,36 @@ public class ServerIOTest {
     assertTrue(s.getConnected());
   }
 
+  @Test
+  public void test_printTerritories() {
+    ServerIO s = getTestServerIO();
+    //assertThrows(NullPointerException.class, () -> {s.printTerritories();});
+    String expected = "\nThis is a list of your territories: \n";
+    String toAdd = "\n";
+    String first = " Narnia (next to: Midkemia, Roshar)\n";
+    String second = " Midkemia (next to: Narnia, Oz, Mordor)\n";
+    String third = " Oz (next to: Midkemia, Gondor, Hogwarts)\n";
+    String fourth = " Gondor (next to: Oz, Elantris, Agrabah)\n";
+    String fifth = " Elantris (next to: Gondor, Scadrial, Atlantica)\n";
+    String sixth = " Scadrial (next to: Elantris, Brigadoon)\n";
+    String test = expected + toAdd + first + second + third + fourth + fifth + sixth;
+    assertEquals(test, s.printTerritories());
+  }
+
+  @Test
+  public void test_printTerritorieswithUnits() {
+    ServerIO s = getTestServerIO();
+    //assertThrows(NullPointerException.class, () -> {s.printTerritories();});
+    String expected = "\nThis is a list of your territories: \n";
+    String toAdd = "\n";
+    String first = " 0 units in Narnia (next to: Midkemia, Roshar)\n";
+    String second = " 0 units in Midkemia (next to: Narnia, Oz, Mordor)\n";
+    String third = " 0 units in Oz (next to: Midkemia, Gondor, Hogwarts)\n";
+    String fourth = " 0 units in Gondor (next to: Oz, Elantris, Agrabah)\n";
+    String fifth = " 0 units in Elantris (next to: Gondor, Scadrial, Atlantica)\n";
+    String sixth = " 0 units in Scadrial (next to: Elantris, Brigadoon)\n";
+    String test = expected + toAdd + first + second + third + fourth + fifth + sixth;
+    assertEquals(test, s.printTerritoriesAndUnits());
+  }
+
 }
