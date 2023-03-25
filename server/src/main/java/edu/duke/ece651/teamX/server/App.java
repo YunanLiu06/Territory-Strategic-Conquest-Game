@@ -20,7 +20,7 @@ public class App {
   Scanner scan = new Scanner(System.in);
 
   // string to greet the clients to the game
-  static String GREETING = "WELCOME TO THE GAME OF RISC! Before we begin, we need some information to set up the game.\n";
+  static String GREETING = "WELCOME TO THE GAME OF RISC! Before we begin, we need some information to set up the game.";
 
   // string to get the number of players
   static String PLAYER_PROMPT = "How many players are playing? Our current system supports 2,3, and 4.\n";
@@ -28,34 +28,50 @@ public class App {
   public App() {
   }
 
+  /**
+   * private helper function to get the amount of players playing in the game
+   */
   private Integer welcomePhase() {
-    System.out.println("\n" + GREETING + PLAYER_PROMPT);
-    return Integer.parseInt(scan.nextLine());
+    Integer numPlayers;
+    while (true) {
+      System.out.println(PLAYER_PROMPT);
+      String num = scan.nextLine();
+      if(num.length() == 0) {
+        continue;
+      }
+      try {
+        numPlayers = Integer.parseInt(num);
+      } catch (NumberFormatException e) {
+        continue;
+      }
+
+      if (numPlayers < 2 || numPlayers > 4) {
+        continue;
+      }
+      break;
+    }
+
+    return numPlayers;
   }
 
   /**
    * Create a RiscServer, take in the number of players, run the game
    */
   public static void main(String[] args) throws IOException {
+    try {
     // create App
     App a = new App();
-
-    // NEED: need to come back and check if the number passed in was not a number
-    Integer numPlayers = -1;
-    int counter = 0;
-    while (numPlayers < 2 || numPlayers > 4) {
-      if (counter > 0) {
-        System.out.println(
-            "Our system does not currently support that number of players. Please enter the number 2,3, or 4.\n");
-      }
-      numPlayers = a.welcomePhase();
-      counter++;
-    }
+    Integer numPlayers;
+    System.out.println("\n" + GREETING);
+    numPlayers = a.welcomePhase();
 
     // create RiscServer
     System.out.println("\nBuilding the game...");
     System.out.println("Players can now connect to the game from their machines.\n");
     RiscServer rs = new RiscServer(numPlayers, new ServerSocket(5000));
     rs.run();
+    } catch (IOException e) {
+      return;
+    }
   }
 }

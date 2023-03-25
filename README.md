@@ -1,5 +1,8 @@
 This repository holds the Java code for the RISK game.
 
+![pipeline](https://gitlab.oit.duke.edu/yl852/multi-project-gradle-651-team/badges/Development/pipeline.svg)
+![coverage](https://gitlab.oit.duke.edu/yl852/multi-project-gradle-651-team/badges/Development/coverage.svg?job=test)
+
 Group Members: yl852, xm62, xc197, and cc804
 
 Links:
@@ -12,3 +15,7 @@ How to run the game:
 3. when the game states that it is ready, on separate machines/terminals, cd into the client folder for each player.
 4. in the client folder, run "tee src/test/resources/input-client-<number>.txt | ./build/install/client/bin/client | tee src/test/resources/output-client-<number>.txt"
 The <number> is whatever the number of client is. So, either 1,2,3, or 4. For example, if you are the first player, you should put 1 in place of <number> and likewise for all other players. 
+
+
+## Coverage
+[Detailed coverage](https://yl852.pages.oit.duke.edu/multi-project-gradle-651-team/dashboard.html)

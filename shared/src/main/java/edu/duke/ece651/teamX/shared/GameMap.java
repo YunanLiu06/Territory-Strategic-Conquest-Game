@@ -2,8 +2,10 @@ package edu.duke.ece651.teamX.shared;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -67,6 +69,79 @@ public class GameMap {
     } else {
       throw new NoSuchElementException("No more groups could be assigned");
     }
+  }
+
+  /**
+   * Get territory by name
+   * @throws IllegalArgumentException
+   * @param name territory name
+   * @return territory named as parameter
+   */
+  public Territory getTerritoryByName(String name){
+    if(!territoryNameMap.containsKey(name)){
+      throw new IllegalArgumentException("There is not territory named " + name);
+    }
+    return territoryNameMap.get(name);
+  }
+
+  /**
+   * Judge if can move units from one territory to another
+   * @rule 'from' and 'to' belong the to same player and 
+   *        there is at least one route from 'from' to 'to' 
+   *        consisting only by other territories of that player  
+   * @param from which territory to move out
+   * @param to which territory to move in
+   * @return if can move
+   */
+  public boolean canMove(Territory from, Territory to){
+    HashSet<Territory> route = new HashSet<>();
+    return canMove(from, to, route);
+  }
+
+  /**
+   * Judge if can attack from one territory to another
+   * @rule 'attacker' and 'victim' belong to different players and
+   *       attacker and victim are adjacent to each other
+   * @param attacker which territory to attack
+   * @param victim which territory to be attacked
+   * @return if can attack
+   */
+  public boolean canAttack(Territory attacker, Territory victim){
+    if(victim.getOwner() == attacker.getOwner()){
+      return false;
+    }
+    for(Territory adj: territories.get(victim)){
+      if(adj == attacker){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Help function for canMove, by DFS
+   * @param curr current territory
+   * @param target target territory
+   * @param route visited territories
+   * @return if can move
+   */
+  private boolean canMove(Territory curr, Territory target, HashSet<Territory> route){
+    if(route.contains(curr) || curr.getOwner() != target.getOwner()){
+      return false;
+    }
+    if(curr == target){
+      return true;
+    }
+    route.add(curr);
+    for(Territory adj: territories.get(curr)){
+      if(adj.getOwner() != curr.getOwner()){
+        continue;
+      }
+      if(canMove(adj, target, route)){
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -137,5 +212,54 @@ public class GameMap {
       }
       groups.add(group);
     }
+  }
+
+  /**
+   * Handle all fires
+   */
+  public void handleAllFires(){
+    for(Territory territory: territories.keySet()){
+      territory.handleFire();
+    }
+  }
+
+  /**
+   * Increase the units in every territory
+   * TODO rule may be changed in goal 2, 
+   *      currently hard code to increase one soldier
+   */
+  public void increaseAllTerritoryUnits(){
+    for(Territory territory: territories.keySet()){
+      territory.addUnit(new Soldier(1));
+    }
+  }
+
+  /**
+   * Check if the game is end
+   * @rule if all territories belong to one player, game end
+   * @return true/false
+   */
+  public boolean isGameEnd(){
+    Player owner = null;
+    for(Territory territory: territories.keySet()){
+      if(owner == null){
+        owner = territory.getOwner();
+      }else if(territory.getOwner() != owner){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Collect all the players does not lose currently
+   * @return
+   */
+  public LinkedHashSet<Player> collectPlayers(){
+    LinkedHashSet<Player> players = new LinkedHashSet<>();
+    for(Territory territory: territories.keySet()){
+      players.add(territory.getOwner());
+    }
+    return players;
   }
 }

@@ -5,24 +5,50 @@ package edu.duke.ece651.teamX.client;
 
 import java.io.IOException;
 import java.net.*;
-
+import java.io.*;
+import java.util.*;
 import edu.duke.ece651.teamX.shared.*;
 
 public class App {
 
-  private RiscClient rc;
-
-  public App(RiscClient rc) {
-    this.rc = rc;
+  /**
+   * This function is to initalize the client
+   * 
+   * @param rc: the client
+   */
+  public App() {
   }
 
+  public String getIPAddress() {
+      System.out.println("\nHello, what is the IP of the Server? e.g. vcm-30720.vm.duke.edu");
+      Scanner scan = new Scanner(System.in);
+      String ip = scan.nextLine();
+      if(ip.length() == 0) {
+        getIPAddress();
+      }
+      return ip;
+  }
+
+  /**
+   * function to start the client code
+   */
   public static void main(String[] args) throws IOException {
-    try {
-      RiscClient rc = new RiscClient(new Socket("localhost", 5000));
-      App a = new App(rc);
+    
+      App a = new App();
+      RiscClient rc;
+      while(true) {
+        String ip = a.getIPAddress();
+        try {
+          rc = new RiscClient(new Socket(ip, 5000));
+        } catch(UnknownHostException e) {
+          System.out.println("\nThe IP Address isn't found");
+          continue;
+        }
+        break;
+      }
       rc.run();
-    } catch (UnknownHostException e) {
+     /*catch (UnknownHostException e) {
       e.printStackTrace();
-    }
+      }*/
   }
 }

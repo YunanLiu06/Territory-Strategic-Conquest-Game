@@ -12,7 +12,8 @@ public class SolderTest {
         assertEquals(s.getAmount(),10);
         s.addAmount(5);
         assertEquals(s.getAmount(),15);
-        s.substractAmount(20);
+        assertThrows(IllegalArgumentException.class, () -> s.substractAmount(20));
+        s.substractAmount(15);
         assertEquals(s.getAmount(),0);
 
     }
