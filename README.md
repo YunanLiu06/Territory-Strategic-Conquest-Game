@@ -8,8 +8,8 @@ UML Diagram: https://lucid.app/lucidchart/0428cb54-9a2e-46b1-82f6-df5d5ea04d1f/e
 
 How to run the game:
 1. run "./gradlew installDist" in the top directory of the project
-2. "./gradlew server-run"
-3. "./gradlew client-run"
+2. "./gradlew run-server"
+3. "./gradlew run-client"
 
 
 
